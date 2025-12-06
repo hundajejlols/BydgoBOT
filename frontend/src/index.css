@@ -1,0 +1,72 @@
+/* PLIK: frontend/src/index.css */
+:root {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    /* TŁO BAZOWE: Bardzo jasny, chłodny gradient */
+    background: linear-gradient(to top left, #dfe9f3 0%, #ffffff 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  /* PŁYWAJĄCE KULE (Blobs) */
+  .background-blob {
+    position: absolute;
+    filter: blur(70px); /* Troszkę mniejsze rozmycie dla lepszego kształtu */
+    z-index: -1;
+    /* ZMIANA KRYCIA: Zmniejszone z 0.8 na 0.5 -> Mniej intensywne! */
+    opacity: 0.5;
+    animation: float 15s infinite alternate ease-in-out;
+  }
+  
+  .blob-1 {
+    top: -15%;
+    left: -15%;
+    width: 55vw;
+    height: 55vw;
+    /* ZMIANA KOLORU: Spokojna brzoskwinia */
+    background: #ffc3a0;
+    animation-delay: 0s;
+  }
+  
+  .blob-2 {
+    bottom: -20%;
+    right: -20%;
+    width: 50vw;
+    height: 50vw;
+    /* ZMIANA KOLORU: Subtelny błękit */
+    background: #a8edea;
+    animation-delay: -5s;
+    animation-duration: 18s;
+  }
+  
+  .blob-3 {
+    bottom: 30%;
+    left: 20%;
+    width: 35vw;
+    height: 35vw;
+    /* ZMIANA KOLORU: Delikatna lawenda */
+    background: #c471ed;
+    animation-duration: 20s;
+    animation-delay: -2s;
+  }
+  
+  /* Wolniejsza i płynniejsza animacja */
+  @keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    100% { transform: translate(40px, 60px) rotate(15deg) scale(1.05); }
+  }
+  
+  #root {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
