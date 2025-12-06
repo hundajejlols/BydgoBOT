@@ -55,12 +55,116 @@ const GAME_LOCATIONS = [
 
 const shuffleArray = (array) => [...array].sort(() => 0.5 - Math.random());
 
+// Mapowanie numeru zdjęcia na nazwę (dla Galerii)
+const GALLERY_IMAGE_NAMES = {
+    1: "Barki i Przechodzący nad Brdą",
+    2: "Budynek Poczty Głównej nad Brdą (jesień)",
+    3: "Historyczny most zwodzony na Brdzie (czarno-białe)",
+    4: "Wieczorny widok na Brdę i MBank (Ciemne)",
+    5: "Defilada wojskowa w centrum (czarno-białe)",
+    6: "Rzeźba Przechodzącego przez rzekę",
+    7: "Widok na Operę Nova i Wyspę Młyńską",
+    8: "Centrum Handlowe Focus Mall (ujęcie z drona)",
+    9: "Świąteczne serca na moście (Noc)",
+    10: "Śluza na Kanale Bydgoskim",
+    11: "Budynek Poczty Głównej nad Brdą (wiosna)",
+    12: "Kamienica narożna (akwarela)",
+    13: "Widok na Brdę i spichrze (światło zimowe)",
+    14: "Spichrze i barki nad Brdą (lato)",
+    15: "Zabudowa Starego Rynku (kamienice)",
+    16: "Budynek Poczty Głównej (ujęcie frontalne)",
+    17: "Wnętrze Lotniska Bydgoszcz",
+    18: "Katedra Św. Piotra i Pawła (czarno-białe)",
+    19: "Houseboat na Brdzie (przyjęcie)",
+    20: "Slackline Games na Brdzie",
+    21: "Park trampolin Eltrox Jump",
+    22: "Dworzec Bydgoszcz Główna (nowoczesny budynek)",
+    23: "Fontanna Potop i Kościół pw. Św. Piotra i Pawła",
+    24: "Spichrze w pełnym słońcu z kwiatami",
+    25: "MBank i Dom Wycieczkowy PTTK nad Brdą",
+    26: "Panorama miasta z drona (Młyny, Opera, Brda)",
+    27: "Mapa Dzielnic Bydgoszczy",
+    28: "Spichrze - Muzeum Bydgoszczy",
+    29: "Pejzaż rzeki Brdy o zachodzie słońca",
+    30: "Spichrze (zdjęcie historyczne - wojenne)"
+};
+
+// --- DANE TRAS TURYSTYCZNYCH Z LINKAMI MAPS ---
+const TOURIST_ROUTES = [
+    { 
+        title: "Klasyczna Trasa Wodna i Stare Miasto", 
+        icon: "🏛️", 
+        desc: "Najważniejsze punkty: Stary Rynek, Bulwary, Spichrze, Wyspa Młyńska, Opera Nova.", 
+        color: "#2563EB", 
+        details: [
+            "Początek: Stary Rynek (Pomnik Walki i Męczeństwa)",
+            "Bulwary nad Brdą (rzeźba 'Przechodzący przez rzekę')",
+            "Spichrze nad Brdą",
+            "Wyspa Młyńska (zielona oaza)",
+            "Opera Nova"
+        ],
+        // Link Mapy (Stary Rynek -> Opera Nova z WP Spichrze/Wyspa Młyńska)
+        mapLink: 'https://www.google.com/maps/dir/?api=1&origin=53.12199,18.00021&destination=53.1244,17.9975&waypoints=53.1235,18.0020|53.1222,17.9958&travelmode=walking'
+    },
+    { 
+        title: "Szlak Wody, Przemysłu i Rzemiosła TeH2O", 
+        icon: "⚙️", 
+        desc: "Odkryj industrialne dziedzictwo miasta.", 
+        color: "#EF4444", 
+        details: [
+            "Muzeum Wodociągów (Wieża Ciśnień)",
+            "Exploseum (dawna fabryka prochu DAG)",
+            "Kanał Bydgoski i zabytkowe śluzy (Okole/Czyżkówko)"
+        ],
+        // Link Mapy (Muzeum Wodociągów -> Exploseum)
+        mapLink: 'https://www.google.com/maps/dir/?api=1&origin=53.1194,17.9903&destination=53.0708,18.0739&travelmode=driving'
+    },
+    { 
+        title: "Secesja w Bydgoskim Śródmieściu", 
+        icon: "🖼️", 
+        desc: "Podziwiaj bogato zdobione kamienice.", 
+        color: "#FBBF24", 
+        details: [
+            "Początek: Plac Wolności (Fontanna Potop)",
+            "Aleje Mickiewicza",
+            "Ulice Śródmieścia, w tym Gdańska",
+            "Detale architektoniczne i balkony"
+        ],
+        // Link Mapy (Plac Wolności -> Aleje Mickiewicza/Gdańska)
+        mapLink: 'https://www.google.com/maps/dir/?api=1&origin=53.1265,18.0080&destination=53.1311,18.0083&travelmode=walking'
+    },
+    { 
+        title: "Trasa Wzdłuż Kanału Bydgoskiego", 
+        icon: "🛶", 
+        desc: "Dłuższy, spokojny spacer z dala od zgiełku.", 
+        color: "#10B981", 
+        details: [
+            "Trasa: wzdłuż kanału od śluzy Okole w kierunku zachodnim.",
+            "Charakterystyka: Płaska, łatwa, idealna na rekreację.",
+            "Punkty: Starodrzewy i zabytkowe śluzy."
+        ],
+        // Link Mapy (Śluza Okole -> Śluza Czyżkówko)
+        mapLink: 'https://www.google.com/maps/dir/?api=1&origin=53.1364,17.9678&destination=53.1333,17.9511&travelmode=walking'
+    },
+    { 
+        title: "Leśny Park Kultury i Wypoczynku Myślęcinek", 
+        icon: "🌳", 
+        desc: "Największy park miejski w Polsce.", 
+        color: "#059669", 
+        details: [
+            "Atrakcje: Ogród Zoologiczny, Ogród Botaniczny, Park Linowy.",
+            "Możliwość zaplanowania wycieczki na cały dzień."
+        ],
+        // Link Mapy (Punkt Centralny Myślęcinka)
+        mapLink: 'https://www.google.com/maps/search/?api=1&query=Leśny+Park+Kultury+i+Wypoczynku+Myślęcinek+Bydgoszcz'
+    },
+];
+
+
 // =========================================================================
 // WIDOK: INTRO / TRAILER (Refactored for visibility)
 // =========================================================================
 function IntroView({ onFinish }) {
-    // Używamy klas CSS (intro-container, intro-overlay, intro-title, etc.) 
-    // z App.css, które zawierają animacje i pozycjonowanie.
     return (
         <div 
             className="intro-container" 
@@ -72,7 +176,6 @@ function IntroView({ onFinish }) {
                 backgroundSize: 'cover', backgroundPosition: 'center' 
             }}
         >
-            {/* Zrefaktorowany kontener z efektem glassmorphism */}
             <div 
                 className="intro-overlay" 
                 style={{
@@ -90,13 +193,13 @@ function IntroView({ onFinish }) {
                 <h1 
                     className="intro-title" 
                     style={{ 
-                        fontSize: '96px', // Zwiększona czcionka
+                        fontSize: '96px', 
                         margin: 0, 
-                        fontWeight: 900, // Zwiększona waga
-                        background: 'linear-gradient(45deg, #ffffff, #fbbd24)', // Zmieniony gradient dla lepszego kontrastu
+                        fontWeight: 900, 
+                        background: 'linear-gradient(45deg, #ffffff, #fbbd24)', 
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
-                        textShadow: '0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(0,0,0,0.5)', // WYRAŹNY BIAŁY CIEŃ
+                        textShadow: '0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(0,0,0,0.5)', 
                         animation: 'fadeInDown 1.5s ease-out'
                     }}
                 >
@@ -130,70 +233,77 @@ function IntroView({ onFinish }) {
 }
 
 // =========================================================================
-// KOMPONENT SZCZEGÓŁOWY (MODAL)
+// KOMPONENT SZCZEGÓŁOWY HISTORII (Wysuwany panel boczny)
 // =========================================================================
-function DetailModal({ item, onClose }) {
+function HistoryDetailPanel({ item, onClose }) {
+    const panelRef = useRef(null);
+
+    useEffect(() => {
+        if (panelRef.current) {
+            if (item) {
+                panelRef.current.classList.add('open');
+            } else {
+                panelRef.current.classList.remove('open');
+            }
+        }
+    }, [item]);
+
     if (!item) return null;
 
     return (
-        <div style={{
-            position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, 
-            background: 'rgba(0, 0, 0, 0.95)', zIndex: 2000, 
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            padding: '20px'
-        }}>
-            <div style={{
-                maxWidth: '900px', width: '100%', maxHeight: '90vh', 
-                background: 'white', borderRadius: '25px', overflow: 'hidden',
-                boxShadow: '0 0 50px rgba(255, 255, 255, 0.2)',
-                position: 'relative'
-            }}>
-                <button 
-                    onClick={onClose}
-                    style={{
-                        position: 'absolute', top: '20px', right: '20px', zIndex: 10,
-                        background: '#ef4444', color: 'white', border: 'none', 
-                        borderRadius: '50%', width: '40px', height: '40px', 
-                        fontSize: '20px', cursor: 'pointer', fontWeight: 'bold'
-                    }}
-                >
-                    ✕
-                </button>
-                <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                    <div style={{ 
-                        height: '300px', 
-                        backgroundImage: `url(${item.img})`, 
-                        backgroundSize: 'cover', 
-                        backgroundPosition: 'center',
-                        position: 'relative'
-                    }}>
-                        <div style={{
-                            position: 'absolute', bottom: 0, left: 0, width: '100%', height: '100%',
-                            background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)'
-                        }}></div>
-                        <div style={{ position: 'absolute', bottom: '20px', left: '30px', color: 'white', zIndex: 5 }}>
-                            <h1 style={{ margin: 0, fontSize: '48px', fontWeight: 900, color: item.color }}>{item.year}</h1>
-                            <h2 style={{ margin: 0, fontSize: '30px' }}>{item.title}</h2>
-                        </div>
+        <div ref={panelRef} className="history-detail-panel">
+            <div className="history-panel-content">
+                {/* Header z obrazkiem i przyciskiem */}
+                <div style={{ 
+                    height: '250px', 
+                    backgroundImage: `url(${item.img})`, 
+                    backgroundSize: 'cover', 
+                    backgroundPosition: 'center',
+                    position: 'relative',
+                    flexShrink: 0
+                }}>
+                    <div style={{
+                        position: 'absolute', bottom: 0, left: 0, width: '100%', height: '100%',
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)'
+                    }}></div>
+                    <button 
+                        onClick={onClose}
+                        style={{
+                            position: 'absolute', top: '20px', left: '20px', zIndex: 10,
+                            background: '#ef4444', color: 'white', border: 'none', 
+                            borderRadius: '50%', width: '40px', height: '40px', 
+                            fontSize: '20px', cursor: 'pointer', fontWeight: 'bold'
+                        }}
+                    >
+                        ✕
+                    </button>
+                    <div style={{ position: 'absolute', bottom: '20px', left: '30px', color: 'white', zIndex: 5 }}>
+                        <h1 style={{ margin: 0, fontSize: '48px', fontWeight: 900, color: item.color }}>{item.year}</h1>
+                        <h2 style={{ margin: 0, fontSize: '30px' }}>{item.title}</h2>
                     </div>
-                    <div style={{ padding: '30px', overflowY: 'auto', flexGrow: 1 }}>
-                        <p style={{ fontSize: '18px', lineHeight: 1.8, color: '#333' }}>{item.detail}</p>
-                        <p style={{ marginTop: '20px', fontSize: '14px', color: '#666' }}>
-                            *Ten opis został wygenerowany na podstawie danych historycznych dla celów edukacyjnych.
-                        </p>
-                    </div>
+                </div>
+                
+                {/* Scrollable Content */}
+                <div style={{ padding: '30px', flexGrow: 1, backgroundColor: 'white' }}>
+                    <h3 style={{color: '#333', marginTop: 0}}>{item.event}</h3>
+                    <p style={{ fontSize: '18px', lineHeight: 1.8, color: '#333' }}>{item.detail}</p>
+                    <p style={{ marginTop: '20px', fontSize: '14px', color: '#666' }}>
+                        *Ten opis został wygenerowany na podstawie danych historycznych dla celów edukacyjnych.
+                    </p>
                 </div>
             </div>
         </div>
     );
 }
 
+
 // =========================================================================
 // WIDOK: GALERIA ZDJĘĆ
 // =========================================================================
 function GalleryView({ onBack }) {
-    const totalImages = 30; // Zakładam, że masz 30 zdjęć w /images/gallery/1.jpg do 30.jpg
-    const imagesList = Array.from({ length: totalImages }, (_, i) => i + 1);
+    // Lista obrazów na podstawie GALLERY_IMAGE_NAMES
+    const imageKeys = Object.keys(GALLERY_IMAGE_NAMES).map(Number);
+    const totalImages = imageKeys.length;
     
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -215,8 +325,9 @@ function GalleryView({ onBack }) {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [nextImage, prevImage, onBack]);
 
-    const currentImageNum = imagesList[currentIndex];
+    const currentImageNum = imageKeys[currentIndex];
     const imagePath = `/images/gallery/${currentImageNum}.jpg`;
+    const imageName = GALLERY_IMAGE_NAMES[currentImageNum] || `Zdjęcie nr ${currentImageNum}`;
 
     const navButtonStyle = {
         position: "absolute",
@@ -248,7 +359,7 @@ function GalleryView({ onBack }) {
             border: "1px solid rgba(255, 255, 255, 0.8)", 
             boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
             borderRadius: "30px", 
-            display: "flex", alignItems: "center", justifyContent: "center",
+            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
             position: "relative", overflow: "hidden"
         }}>
             {/* Przycisk powrotu */}
@@ -284,24 +395,38 @@ function GalleryView({ onBack }) {
                 ❮
             </button>
 
-            {/* Główne zdjęcie */}
-            <div style={{ width: "100%", height: "100%", padding: "60px", boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <img 
-                    src={imagePath} 
-                    alt={`Galeria ${currentImageNum}`} 
-                    style={{ 
-                        maxWidth: "100%", 
-                        maxHeight: "100%", 
-                        objectFit: "contain", 
-                        borderRadius: "20px",
-                        boxShadow: "0 10px 30px rgba(0,0,0,0.15)"
-                    }} 
-                    onError={(e) => {
-                        e.target.onerror = null; 
-                        e.target.src="https://via.placeholder.com/800x600?text=Brak+zdjęcia"
-                        e.target.alt="Brak zdjęcia"
-                    }}
-                />
+            {/* Główne zdjęcie i Nazwa */}
+            <div style={{ width: "100%", height: "100%", padding: "60px", boxSizing: "border-box", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+                    <img 
+                        src={imagePath} 
+                        alt={imageName} 
+                        style={{ 
+                            maxWidth: "100%", 
+                            maxHeight: "100%", 
+                            objectFit: "contain", // Wymusza poprawne skalowanie bez ucinania
+                            borderRadius: "20px",
+                            boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+                            transition: 'all 0.3s'
+                        }} 
+                        onError={(e) => {
+                            e.target.onerror = null; 
+                            e.target.src="https://via.placeholder.com/800x600?text=Brak+zdjęcia"
+                            e.target.alt="Brak zdjęcia"
+                        }}
+                    />
+                </div>
+                {/* Wymagana Nazwa pod zdjęciem */}
+                <p style={{ 
+                    marginTop: '15px', 
+                    marginBottom: 0, 
+                    fontSize: '16px', 
+                    fontWeight: 'bold', 
+                    color: '#333', 
+                    textAlign: 'center' 
+                }}>
+                    {imageName}
+                </p>
             </div>
 
             {/* Przycisk Następny */}
@@ -358,12 +483,6 @@ function CityGame({ onBack }) {
 
             mapInstanceRef.current = map;
         }
-        return () => {
-            if (mapInstanceRef.current) {
-                mapInstanceRef.current.remove();
-                mapInstanceRef.current = null;
-            }
-        };
     }, []);
 
     useEffect(() => {
@@ -380,10 +499,10 @@ function CityGame({ onBack }) {
     }, [userGuess, gameState]);
 
     useEffect(() => {
-        if (gameState === 'RESULT') {
-            const map = mapInstanceRef.current;
-            if (!map) return;
+        const map = mapInstanceRef.current;
+        if (!map) return;
 
+        if (gameState === 'RESULT') {
             const target = GAME_LOCATIONS[round];
             const targetLatLng = [target.lat, target.lng];
 
@@ -403,11 +522,11 @@ function CityGame({ onBack }) {
             }
             setTimeout(() => map.invalidateSize(), 300);
         }
-    }, [gameState]);
+    }, [gameState, round, userGuess]);
 
     useEffect(() => {
-        if (gameState === 'GUESSING' && mapInstanceRef.current) {
-            const map = mapInstanceRef.current;
+        const map = mapInstanceRef.current;
+        if (gameState === 'GUESSING' && map) {
             if (userMarkerRef.current) map.removeLayer(userMarkerRef.current);
             if (correctMarkerRef.current) map.removeLayer(correctMarkerRef.current);
             if (lineRef.current) map.removeLayer(lineRef.current);
@@ -818,7 +937,9 @@ function HistoryView({ onBack }) {
     const handleScroll = () => {
         if (scrollRef.current) {
             const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
-            const progress = scrollTop / (scrollHeight - clientHeight);
+            // Sprawdzamy, czy w ogóle można scrollować, żeby uniknąć dzielenia przez zero, jeśli treść jest mniejsza niż okno
+            const scrollRange = scrollHeight - clientHeight;
+            const progress = scrollRange > 0 ? scrollTop / scrollRange : 0;
             setScrollProgress(progress);
         }
     };
@@ -826,6 +947,11 @@ function HistoryView({ onBack }) {
     useEffect(() => {
         const currentRef = scrollRef.current;
         if (currentRef) {
+            // Natychmiastowe wymuszenie renderowania, aby scrollHeight było poprawne
+            currentRef.style.display = 'none'; 
+            currentRef.offsetHeight; 
+            currentRef.style.display = 'block'; 
+            
             currentRef.addEventListener('scroll', handleScroll);
             handleScroll(); 
         }
@@ -845,10 +971,11 @@ function HistoryView({ onBack }) {
                 position: "fixed", 
                 top: 0,
                 left: 0,
-                overflowY: "scroll",
+                overflowY: "auto", // Umożliwienie scrollowania
                 zIndex: 900, 
                 background: "#0a0a0a",
                 scrollBehavior: "smooth",
+                display: "block", 
             }}
         >
             {/* GŁÓWNE TŁO - STATIC PARALLAX BASE */}
@@ -878,11 +1005,11 @@ function HistoryView({ onBack }) {
                 🏠
             </button>
 
-            {/* Stały Tytuł z efektem Parallax (znika) */}
+            {/* Stały Tytuł z efektem Parallax (zniska) - ZMIANA MNOŻNIKA */}
             <div style={{ 
                 position: "sticky", top: 0, zIndex: 1000, 
                 padding: "20vh 0 10vh",
-                opacity: Math.max(0, 1 - scrollProgress * 2), 
+                opacity: Math.max(0, 1 - scrollProgress * 4), // Zmiana na * 4 dla szybszego znikania
                 transform: `scale(${1 + scrollProgress * 0.5})`, 
                 transition: 'opacity 0.2s, transform 0.2s',
                 textAlign: "center",
@@ -900,7 +1027,7 @@ function HistoryView({ onBack }) {
                 zIndex: 950,
                 padding: "10px",
                 width: "100%",
-                minHeight: '200vh' 
+                minHeight: '300vh' // Umożliwienie scrollowania
             }}>
                 {historicalDates.map((item, index) => {
                     const totalItems = historicalDates.length;
@@ -983,8 +1110,78 @@ function HistoryView({ onBack }) {
             {/* Dodatkowy element na dole, aby umożliwić przewinięcie ostatniej karty na środek */}
             <div style={{ height: "50vh" }}></div>
 
-            {/* Modal Szczegółów */}
-            <DetailModal item={detailView} onClose={() => setDetailView(null)} />
+            {/* Zmiana: Zastąpienie Modal na Panel Boczny */}
+            <HistoryDetailPanel item={detailView} onClose={() => setDetailView(null)} />
+        </div>
+    );
+}
+
+// =========================================================================
+// WIDOK: TRASY TURYSTYCZNE (NOWY KOMPONENT)
+// =========================================================================
+function TouristRoutesView({ onBack }) {
+    const routes = TOURIST_ROUTES;
+
+    return (
+        <div style={{ width: "100%", maxWidth: "1000px", height: "85vh", background: "rgba(255,255,255,0.7)", borderRadius: "30px", display: "flex", flexDirection: "column", boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)" }}>
+           <div style={{ padding: "15px 25px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(0,0,0,0.1)" }}>
+              <button onClick={onBack} style={{ border: "none", background: "none", fontSize: "24px", cursor: "pointer" }}>🏠</button>
+              <h2 style={{ margin: 0, fontWeight: "bold", background: "linear-gradient(45deg, #2563EB, #10B981)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Trasy Turystyczne 🧭</h2>
+              <span style={{width: '24px'}}></span>
+           </div>
+           
+           <div style={{ flex: 1, overflowY: "auto", padding: "20px", display: "grid", gridTemplateColumns: "1fr", gap: "20px" }}>
+                {routes.map((route, index) => (
+                    <div key={index} style={{ 
+                        background: "white", 
+                        padding: "20px", 
+                        borderRadius: "15px", 
+                        boxShadow: "0 4px 15px rgba(0,0,0,0.05)",
+                        borderLeft: `5px solid ${route.color}`,
+                        display: 'flex',
+                        flexDirection: 'column'
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                            <div style={{ fontSize: "30px", marginRight: "10px", flexShrink: 0 }}>{route.icon}</div>
+                            <div>
+                                <h3 style={{ margin: 0, color: '#333' }}>{route.title}</h3>
+                                <p style={{ margin: '2px 0 0', fontSize: '14px', color: '#666' }}>{route.desc}</p>
+                            </div>
+                        </div>
+                        
+                        <div style={{ borderTop: '1px solid #eee', paddingTop: '10px' }}>
+                            <h4 style={{ margin: '5px 0 5px 0', fontSize: '14px', color: '#555' }}>Główne punkty trasy:</h4>
+                            <ul style={{ listStyleType: 'disc', margin: 0, paddingLeft: '20px', fontSize: '14px', marginBottom: '15px' }}>
+                                {route.details.map((detail, dIndex) => (
+                                    <li key={dIndex} style={{ margin: '5px 0' }}>{detail}</li>
+                                ))}
+                            </ul>
+                            <a 
+                                href={route.mapLink} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                style={{ 
+                                    padding: "8px 15px", 
+                                    background: route.color, 
+                                    color: "white", 
+                                    border: "none", 
+                                    borderRadius: "8px", 
+                                    cursor: "pointer",
+                                    fontWeight: 'bold',
+                                    textDecoration: 'none',
+                                    display: 'inline-block'
+                                }}
+                            >
+                                Pobierz trasę (Google Maps) 🗺️
+                            </a>
+                        </div>
+                        
+                    </div>
+                ))}
+                <div style={{textAlign: 'center', marginTop: '10px', fontSize: '12px', color: '#888'}}>
+                    <p>Wiele oficjalnych tras, w tym te poświęcone Staremu Miastu i Secesji, można pobrać jako mapy lub przewodniki ze strony Visit Bydgoszcz.</p>
+                </div>
+           </div>
         </div>
     );
 }
@@ -995,6 +1192,7 @@ function HistoryView({ onBack }) {
 function MainMenu({ onStart }) {
   const cards = [
     { id: 'map', title: 'BydgoBOT', icon: '🏛️', desc: 'Rozmawiaj z zabytkami.', color: 'linear-gradient(135deg, #2563EB, #a18cd1)' },
+    { id: 'tourist', title: 'Trasy Turystyczne', icon: '🧭', desc: 'Gotowe plany zwiedzania miasta.', color: 'linear-gradient(135deg, #4ADE80, #10B981)' },
     { id: 'quiz', title: 'Quiz Wiedzy', icon: '❓', desc: 'Co to za miejsce?', color: 'linear-gradient(135deg, #ff9966, #ff5e62)' },
     { id: 'game', title: 'Gra Miejska', icon: '🗺️', desc: 'Zgadnij gdzie jesteś!', color: 'linear-gradient(135deg, #8E2DE2, #4A00E0)' },
     { id: 'food', title: 'Gdzie zjeść?', icon: '🍔', desc: 'Gastronomia w okolicy.', color: 'linear-gradient(135deg, #DA4453, #89216B)' },
@@ -1004,13 +1202,30 @@ function MainMenu({ onStart }) {
 return (
     <div 
         className="menu-container" 
-        style={{ width: "100%", maxWidth: "850px", maxHeight: "90vh", padding: "20px 30px", paddingRight: "15px", background: "rgba(255,255,255,0.6)", borderRadius: "30px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", overflowY: "auto" }}
+        style={{ 
+            width: "100%", 
+            maxWidth: "850px", 
+            maxHeight: "90vh", 
+            padding: "20px 30px", 
+            paddingRight: "15px", 
+            // Czysty styl glassmorphism (przezroczyste tło na kulach)
+            background: "rgba(255,255,255,0.7)", 
+            borderRadius: "30px", 
+            textAlign: "center", 
+            display: "flex", 
+            flexDirection: "column", 
+            alignItems: "center", 
+            overflowY: "auto",
+            
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(255,255,255,0.8)",
+            boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
+        }}
     >
       <div style={{fontSize:"40px",marginBottom:"5px"}}>🌊</div>
       <h1 style={{fontSize:"32px",margin:"0 0 5px 0",background:"linear-gradient(45deg, #2563EB, #a18cd1)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>Wirtualna Bydgoszcz</h1>
       <p style={{color:"#555",fontSize:"15px",maxWidth:"600px",marginBottom:"25px"}}>Odkryj miasto z AI. Wybierz aktywność:</p>
       
-      {/* ZMIANA: maxWidth zwiększone z 700px na 800px, aby zmieściły się 3 karty w rzędzie */}
       <div style={{ display: "flex", gap: "15px", flexWrap: "wrap", justifyContent: "center", maxWidth:"800px" }}>
         {cards.map(c => <div key={c.id} onClick={() => !c.disabled && onStart(c.id)} style={{ width: "200px", padding: "15px", borderRadius: "15px", background: "white", cursor: c.disabled?"not-allowed":"pointer", opacity:c.disabled?0.6:1, transition:"transform 0.2s", display:"flex", flexDirection:"column", alignItems:"center", boxShadow:"0 4px 10px rgba(0,0,0,0.05)" }} onMouseEnter={e=>!c.disabled&&(e.currentTarget.style.transform="translateY(-4px)")} onMouseLeave={e=>!c.disabled&&(e.currentTarget.style.transform="translateY(0)")}><div style={{fontSize:"32px",marginBottom:"8px"}}>{c.icon}</div><h3 style={{margin:"0 0 5px 0",color:"#333",fontSize:"18px"}}>{c.title}</h3><p style={{fontSize:"12px",color:"#666",marginBottom:"12px",minHeight:"30px",lineHeight:"1.2"}}>{c.desc}</p><button style={{padding:"6px 20px",borderRadius:"15px",border:"none",color:"white",fontWeight:"bold",fontSize:"13px",background:c.disabled?"#ccc":c.color,cursor:c.disabled?"not-allowed":"pointer"}}>{c.disabled?"Wkrótce":"Start"}</button></div>)}
       </div>
@@ -1037,6 +1252,7 @@ function App() {
       {currentView === 'game' && <CityGame onBack={() => setCurrentView('menu')} />}
       {currentView === 'history' && <HistoryView onBack={() => setCurrentView('menu')} />}
       {currentView === 'gallery' && <GalleryView onBack={() => setCurrentView('menu')} />}
+      {currentView === 'tourist' && <TouristRoutesView onBack={() => setCurrentView('menu')} />}
     </>
   )
 }
