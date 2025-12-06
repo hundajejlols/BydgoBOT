@@ -1,3 +1,4 @@
+/* --- DOMYŚLNE STYLE VITE/REACT --- */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -19,12 +20,8 @@
 }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -39,4 +36,236 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* --- INTRO / TRAILER --- */
+.intro-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  backdrop-filter: blur(3px);
+}
+
+.intro-video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.intro-title {
+  font-size: 5rem;
+  margin: 0;
+  font-weight: 800;
+  background: linear-gradient(45deg, #ffffff, #a18cd1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeInDown 1.5s ease-out;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.intro-subtitle {
+  font-size: 1.5rem;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  opacity: 0.9;
+  animation: fadeInUp 1.5s ease-out;
+}
+
+.btn-start-adventure {
+  padding: 15px 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(90deg, #2563EB, #a18cd1);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: zoomIn 2s ease-out;
+}
+
+.btn-start-adventure:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 40px rgba(37, 99, 235, 0.8);
+}
+
+/* Animacje */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* --- GRA MIEJSKA (GUESSR) --- */
+.game-top-bar {
+  height: 60px;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2000;
+  box-sizing: border-box;
+  backdrop-filter: blur(5px);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.game-stat {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
+
+.timer-warning {
+  color: #ef4444;
+  animation: pulse 1s infinite;
+}
+
+.street-view-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.guess-map-wrapper {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 320px;
+  height: 240px;
+  border: 4px solid white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: #e0e0e0;
+  overflow: hidden;
+}
+
+.guess-map-wrapper:hover,
+.guess-map-wrapper.result-mode {
+  width: 500px;
+  height: 400px;
+}
+
+.btn-action {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  z-index: 2000;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.btn-guess {
+  background: #d90000;
+  color: white;
+  opacity: 0.9;
+}
+.btn-guess:hover {
+  background: #ff3333;
+  transform: translateX(-50%) scale(1.02);
+}
+
+.btn-next {
+  background: #28a745;
+  color: white;
+}
+.btn-next:hover {
+  background: #34d058;
+}
+
+.game-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 5000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* --- PASEK PRZEWIJANIA DLA MENU (NOWOŚĆ) --- */
+.menu-container {
+  overflow-y: auto;       
+  scrollbar-width: thin;  
+  scrollbar-color: rgba(37, 99, 235, 0.5) transparent; 
+}
+
+.menu-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.menu-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05); 
+  border-radius: 10px;
+  margin: 15px 0; 
+}
+
+.menu-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #2563EB, #a18cd1); 
+  border-radius: 10px; 
+  border: 2px solid rgba(255, 255, 255, 0.5); 
+}
+
+.menu-container::-webkit-scrollbar-thumb:hover {
+  background: #1d4ed8; 
 }
