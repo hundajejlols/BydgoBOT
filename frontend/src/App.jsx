@@ -56,22 +56,74 @@ const GAME_LOCATIONS = [
 const shuffleArray = (array) => [...array].sort(() => 0.5 - Math.random());
 
 // =========================================================================
-// WIDOK: INTRO / TRAILER (Szkielet)
+// WIDOK: INTRO / TRAILER (Refactored for visibility)
 // =========================================================================
 function IntroView({ onFinish }) {
+    // Używamy klas CSS (intro-container, intro-overlay, intro-title, etc.) 
+    // z App.css, które zawierają animacje i pozycjonowanie.
     return (
-        <div style={{ 
-            position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', 
-            background: 'linear-gradient(to bottom, #2563EB, #a18cd1)', zIndex: 5000,
-            display: 'flex', alignItems: 'center', justifyContent: 'center', 
-            backgroundImage: "url('/images/rynek.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' 
-        }}>
-            <div style={{ background: 'rgba(0,0,0,0.6)', padding: '50px', borderRadius: '20px', textAlign: 'center', color: 'white', backdropFilter: 'blur(5px)' }}>
-                <h1 style={{ fontSize: '48px', margin: 0 }}>Bydgoszcz</h1>
-                <p style={{ fontSize: '20px', margin: '10px 0 30px' }}>Miasto, które opowiada historie</p>
-                <button onClick={onFinish} style={{ padding: '15px 40px', background: '#FFC107', color: 'black', border: 'none', borderRadius: '30px', fontSize: '18px', fontWeight: 'bold', cursor: 'pointer' }}>
+        <div 
+            className="intro-container" 
+            style={{ 
+                backgroundImage: "url('/images/gallery/1.jpg')", 
+                position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', 
+                zIndex: 5000, 
+                display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                backgroundSize: 'cover', backgroundPosition: 'center' 
+            }}
+        >
+            {/* Zrefaktorowany kontener z efektem glassmorphism */}
+            <div 
+                className="intro-overlay" 
+                style={{
+                    background: 'rgba(255, 255, 255, 0.1)', 
+                    padding: '50px', 
+                    borderRadius: '25px', 
+                    textAlign: 'center', 
+                    color: 'white', 
+                    backdropFilter: 'blur(15px)',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                    boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
+                }}
+            >
+                {/* Zmiana: Zwiększona czcionka i dodany biały cień dla lepszej widoczności */}
+                <h1 
+                    className="intro-title" 
+                    style={{ 
+                        fontSize: '96px', // Zwiększona czcionka
+                        margin: 0, 
+                        fontWeight: 900, // Zwiększona waga
+                        background: 'linear-gradient(45deg, #ffffff, #fbbd24)', // Zmieniony gradient dla lepszego kontrastu
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        textShadow: '0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(0,0,0,0.5)', // WYRAŹNY BIAŁY CIEŃ
+                        animation: 'fadeInDown 1.5s ease-out'
+                    }}
+                >
+                    BydgoBOT
+                </h1>
+                <p className="intro-subtitle" style={{ fontSize: '24px', textShadow: '0 0 5px rgba(0,0,0,0.5)' }}>Twój AI Przewodnik po Bydgoszczy</p>
+                <button 
+                    onClick={onFinish} 
+                    className="btn-start-adventure"
+                    style={{
+                        padding: '15px 40px', 
+                        background: '#FFC107', 
+                        color: 'black', 
+                        border: 'none', 
+                        borderRadius: '30px', 
+                        fontSize: '18px', 
+                        fontWeight: 'bold', 
+                        cursor: 'pointer',
+                        boxShadow: '0 0 20px rgba(255, 193, 7, 0.5)',
+                        transition: 'transform 0.3s, box-shadow 0.3s, background 0.3s'
+                    }}
+                >
                     ROZPOCZNIJ PRZYGODĘ
                 </button>
+                <p style={{marginTop: '40px', fontSize: '12px', opacity: 0.8, animation: 'fadeInUp 2s ease-out'}}>
+                    Projekt stworzony z miłości do miasta 🇵🇱
+                </p>
             </div>
         </div>
     )
