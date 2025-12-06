@@ -947,10 +947,9 @@ function MainMenu({ onStart }) {
     { id: 'game', title: 'Gra Miejska', icon: '🗺️', desc: 'Zgadnij gdzie jesteś!', color: 'linear-gradient(135deg, #8E2DE2, #4A00E0)' },
     { id: 'food', title: 'Gdzie zjeść?', icon: '🍔', desc: 'Gastronomia w okolicy.', color: 'linear-gradient(135deg, #DA4453, #89216B)' },
     { id: 'history', title: 'Historia Miasta', icon: '📜', desc: 'Najważniejsze daty i wydarzenia.', color: 'linear-gradient(135deg, #38bdf8, #818cf8)' },
-    { id: 'events', title: 'Wydarzenia', icon: '📅', desc: 'Co się dzieje? (wkrótce).', color: 'linear-gradient(135deg, #F2994A, #F2C94C)', disabled: true },
-    { id: 'gallery', title: 'Galeria', icon: '📸', desc: 'Zdjęcia miasta.', color: 'linear-gradient(135deg, #56ab2f, #a8e063)' }, // Teraz jest aktywne
+    { id: 'gallery', title: 'Galeria', icon: '📸', desc: 'Zdjęcia miasta.', color: 'linear-gradient(135deg, #56ab2f, #a8e063)' }, 
   ];
-  return (
+return (
     <div 
         className="menu-container" 
         style={{ width: "100%", maxWidth: "850px", maxHeight: "90vh", padding: "20px 30px", paddingRight: "15px", background: "rgba(255,255,255,0.6)", borderRadius: "30px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", overflowY: "auto" }}
@@ -958,7 +957,9 @@ function MainMenu({ onStart }) {
       <div style={{fontSize:"40px",marginBottom:"5px"}}>🌊</div>
       <h1 style={{fontSize:"32px",margin:"0 0 5px 0",background:"linear-gradient(45deg, #2563EB, #a18cd1)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>Wirtualna Bydgoszcz</h1>
       <p style={{color:"#555",fontSize:"15px",maxWidth:"600px",marginBottom:"25px"}}>Odkryj miasto z AI. Wybierz aktywność:</p>
-      <div style={{ display: "flex", gap: "15px", flexWrap: "wrap", justifyContent: "center", maxWidth:"700px" }}>
+      
+      {/* ZMIANA: maxWidth zwiększone z 700px na 800px, aby zmieściły się 3 karty w rzędzie */}
+      <div style={{ display: "flex", gap: "15px", flexWrap: "wrap", justifyContent: "center", maxWidth:"800px" }}>
         {cards.map(c => <div key={c.id} onClick={() => !c.disabled && onStart(c.id)} style={{ width: "200px", padding: "15px", borderRadius: "15px", background: "white", cursor: c.disabled?"not-allowed":"pointer", opacity:c.disabled?0.6:1, transition:"transform 0.2s", display:"flex", flexDirection:"column", alignItems:"center", boxShadow:"0 4px 10px rgba(0,0,0,0.05)" }} onMouseEnter={e=>!c.disabled&&(e.currentTarget.style.transform="translateY(-4px)")} onMouseLeave={e=>!c.disabled&&(e.currentTarget.style.transform="translateY(0)")}><div style={{fontSize:"32px",marginBottom:"8px"}}>{c.icon}</div><h3 style={{margin:"0 0 5px 0",color:"#333",fontSize:"18px"}}>{c.title}</h3><p style={{fontSize:"12px",color:"#666",marginBottom:"12px",minHeight:"30px",lineHeight:"1.2"}}>{c.desc}</p><button style={{padding:"6px 20px",borderRadius:"15px",border:"none",color:"white",fontWeight:"bold",fontSize:"13px",background:c.disabled?"#ccc":c.color,cursor:c.disabled?"not-allowed":"pointer"}}>{c.disabled?"Wkrótce":"Start"}</button></div>)}
       </div>
       <div style={{marginTop:"20px",fontSize:"11px",color:"#888",opacity:0.8}}>© 2025 BydgoBOT Team</div>
