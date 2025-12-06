@@ -46,51 +46,101 @@ const monumentsData = [
 
 // --- LOKALIZACJE DO GRY MIEJSKIEJ ---
 const GAME_LOCATIONS = [
-    {
-        id: 1,
-        name: "Stary Rynek",
-        embedUrl: "https://www.google.com/maps/embed?pb=!4v1700000000000!6m8!1m7!1sCAoSLEFGMVFpcE5CZHZ4aU1xX0xZLV9EQWc!2m2!1d53.121884!2d18.001646!3f220!4f0!5f0.7820865974627469", 
-        lat: 53.121884, 
-        lng: 18.001646
-    },
-    {
-        id: 2,
-        name: "Wyspa Młyńska",
-        embedUrl: "https://www.google.com/maps/embed?pb=!4v1700000000000!6m8!1m7!1sCAoSLEFGMVFpcFBFOXlmUjZ4X0xZLV9EQWc!2m2!1d53.1238!2d17.9966!3f100!4f0!5f0.7820865974627469", 
-        lat: 53.1238,
-        lng: 17.9966
-    },
-    {
-        id: 3,
-        name: "Opera Nova",
-        embedUrl: "https://www.google.com/maps/embed?pb=!4v1700000000000!6m8!1m7!1sCAoSLEFGMVFpcE5CZHZ4aU1xX0xZLV9EQWc!2m2!1d53.1227!2d18.0006!3f50!4f0!5f0.7820865974627469", 
-        lat: 53.1227,
-        lng: 18.0006
-    },
-    {
-        id: 4,
-        name: "Bazylika (Al. Ossolińskich)",
-        embedUrl: "https://www.google.com/maps/embed?pb=!4v1700000000000!6m8!1m7!1sCAoSLEFGMVFpcE5CZHZ4aU1xX0xZLV9EQWc!2m2!1d53.1260!2d18.0120!3f180!4f0!5f0.7820865974627469", 
-        lat: 53.1260,
-        lng: 18.0120
-    },
-    {
-        id: 5,
-        name: "Wieża Ciśnień",
-        embedUrl: "https://www.google.com/maps/embed?pb=!4v1700000000000!6m8!1m7!1sCAoSLEFGMVFpcE5CZHZ4aU1xX0xZLV9EQWc!2m2!1d53.1206!2d17.9912!3f0!4f0!5f0.7820865974627469", 
-        lat: 53.1206,
-        lng: 17.9912
-    }
+    { id: 1, name: "Stary Rynek", embedUrl: "https://www.google.com/maps/embed?pb=!4v1700000000000!6m8!1m7!1sCAoSLEFGMVFpcE5CZHZ4aU1xX0xZLV9EQWc!2m2!1d53.121884!2d18.001646!3f220!4f0!5f0.7820865974627469", lat: 53.121884, lng: 18.001646 },
+    { id: 2, name: "Wyspa Młyńska", embedUrl: "https://www.google.com/maps/embed?pb=!4v1700000000000!6m8!1m7!1sCAoSLEFGMVFpcFBFOXlmUjZ4X0xZLV9EQWc!2m2!1d53.1238!2d17.9966!3f100!4f0!5f0.7820865974627469", lat: 53.1238, lng: 17.9966 },
+    { id: 3, name: "Opera Nova", embedUrl: "https://www.google.com/maps/embed?pb=!4v1700000000000!6m8!1m7!1sCAoSLEFGMVFpcE5CZHZ4aU1xX0xZLV9EQWc!2m2!1d53.1227!2d18.0006!3f50!4f0!5f0.7820865974627469", lat: 53.1227, lng: 18.0006 },
+    { id: 4, name: "Bazylika (Al. Ossolińskich)", embedUrl: "https://www.google.com/maps/embed?pb=!4v1700000000000!6m8!1m7!1sCAoSLEFGMVFpcE5CZHZ4aU1xX0xZLV9EQWc!2m2!1d53.1260!2d18.0120!3f180!4f0!5f0.7820865974627469", lat: 53.1260, lng: 18.0120 },
+    { id: 5, name: "Wieża Ciśnień", embedUrl: "https://www.google.com/maps/embed?pb=!4v1700000000000!6m8!1m7!1sCAoSLEFGMVFpcE5CZHZ4aU1xX0xZLV9EQWc!2m2!1d53.1206!2d17.9912!3f0!4f0!5f0.7820865974627469", lat: 53.1206, lng: 17.9912 }
 ];
 
 const shuffleArray = (array) => [...array].sort(() => 0.5 - Math.random());
 
 // =========================================================================
-// WIDOK: GALERIA ZDJĘĆ (JASNY MOTYW GLASSMORPHISM)
+// WIDOK: INTRO / TRAILER (Szkielet)
+// =========================================================================
+function IntroView({ onFinish }) {
+    return (
+        <div style={{ 
+            position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', 
+            background: 'linear-gradient(to bottom, #2563EB, #a18cd1)', zIndex: 5000,
+            display: 'flex', alignItems: 'center', justifyContent: 'center', 
+            backgroundImage: "url('/images/rynek.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' 
+        }}>
+            <div style={{ background: 'rgba(0,0,0,0.6)', padding: '50px', borderRadius: '20px', textAlign: 'center', color: 'white', backdropFilter: 'blur(5px)' }}>
+                <h1 style={{ fontSize: '48px', margin: 0 }}>Bydgoszcz</h1>
+                <p style={{ fontSize: '20px', margin: '10px 0 30px' }}>Miasto, które opowiada historie</p>
+                <button onClick={onFinish} style={{ padding: '15px 40px', background: '#FFC107', color: 'black', border: 'none', borderRadius: '30px', fontSize: '18px', fontWeight: 'bold', cursor: 'pointer' }}>
+                    ROZPOCZNIJ PRZYGODĘ
+                </button>
+            </div>
+        </div>
+    )
+}
+
+// =========================================================================
+// KOMPONENT SZCZEGÓŁOWY (MODAL)
+// =========================================================================
+function DetailModal({ item, onClose }) {
+    if (!item) return null;
+
+    return (
+        <div style={{
+            position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, 
+            background: 'rgba(0, 0, 0, 0.95)', zIndex: 2000, 
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            padding: '20px'
+        }}>
+            <div style={{
+                maxWidth: '900px', width: '100%', maxHeight: '90vh', 
+                background: 'white', borderRadius: '25px', overflow: 'hidden',
+                boxShadow: '0 0 50px rgba(255, 255, 255, 0.2)',
+                position: 'relative'
+            }}>
+                <button 
+                    onClick={onClose}
+                    style={{
+                        position: 'absolute', top: '20px', right: '20px', zIndex: 10,
+                        background: '#ef4444', color: 'white', border: 'none', 
+                        borderRadius: '50%', width: '40px', height: '40px', 
+                        fontSize: '20px', cursor: 'pointer', fontWeight: 'bold'
+                    }}
+                >
+                    ✕
+                </button>
+                <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                    <div style={{ 
+                        height: '300px', 
+                        backgroundImage: `url(${item.img})`, 
+                        backgroundSize: 'cover', 
+                        backgroundPosition: 'center',
+                        position: 'relative'
+                    }}>
+                        <div style={{
+                            position: 'absolute', bottom: 0, left: 0, width: '100%', height: '100%',
+                            background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)'
+                        }}></div>
+                        <div style={{ position: 'absolute', bottom: '20px', left: '30px', color: 'white', zIndex: 5 }}>
+                            <h1 style={{ margin: 0, fontSize: '48px', fontWeight: 900, color: item.color }}>{item.year}</h1>
+                            <h2 style={{ margin: 0, fontSize: '30px' }}>{item.title}</h2>
+                        </div>
+                    </div>
+                    <div style={{ padding: '30px', overflowY: 'auto', flexGrow: 1 }}>
+                        <p style={{ fontSize: '18px', lineHeight: 1.8, color: '#333' }}>{item.detail}</p>
+                        <p style={{ marginTop: '20px', fontSize: '14px', color: '#666' }}>
+                            *Ten opis został wygenerowany na podstawie danych historycznych dla celów edukacyjnych.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// =========================================================================
+// WIDOK: GALERIA ZDJĘĆ
 // =========================================================================
 function GalleryView({ onBack }) {
-    // 30 zdjęć w folderze /public/images/gallery/
-    const totalImages = 30;
+    const totalImages = 30; // Zakładam, że masz 30 zdjęć w /images/gallery/1.jpg do 30.jpg
     const imagesList = Array.from({ length: totalImages }, (_, i) => i + 1);
     
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -116,13 +166,12 @@ function GalleryView({ onBack }) {
     const currentImageNum = imagesList[currentIndex];
     const imagePath = `/images/gallery/${currentImageNum}.jpg`;
 
-    // ZMIANA: Style przycisków pasujące do jasnego tła
     const navButtonStyle = {
         position: "absolute",
         top: "50%",
         transform: "translateY(-50%)",
-        background: "rgba(255, 255, 255, 0.8)", // Jasne tło
-        color: "#2563EB", // Niebieska strzałka (kolor przewodni)
+        background: "rgba(255, 255, 255, 0.8)",
+        color: "#2563EB",
         border: "1px solid rgba(37, 99, 235, 0.2)",
         borderRadius: "50%",
         width: "60px",
@@ -142,9 +191,8 @@ function GalleryView({ onBack }) {
     return (
         <div style={{ 
             width: "100%", maxWidth: "1100px", height: "85vh", 
-            // ZMIANA: Tło spójne z resztą aplikacji (jasne szkło)
             background: "rgba(255, 255, 255, 0.55)", 
-            backdropFilter: "blur(20px)",            
+            backdropFilter: "blur(20px)",            
             border: "1px solid rgba(255, 255, 255, 0.8)", 
             boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
             borderRadius: "30px", 
@@ -686,42 +734,241 @@ function BydgoMap({ onBack }) {
   );
 }
 
-// --- WIDOK 5: MENU GŁÓWNE ---
+// =========================================================================
+// WIDOK: HISTORIA MIASTA (HistoryView) - Z efektem Scroll-Zoom/Parallax
+// =========================================================================
+function HistoryView({ onBack }) {
+    const historicalDates = [
+        { year: 1238, title: "Pierwsza Wzmianka", event: "Pierwsza pisemna wzmianka o osadzie Bygdozcsa.", img: "/images/kazimierz.jpg", color: "#60A5FA", 
+          detail: "Pierwsze historyczne zapisy o Bydgoszczy (wtedy Bytgozcsa) pochodzą z dokumentów księcia kujawskiego Kazimierza, syna Konrada Mazowieckiego. Wzmianka ta dotyczyła przekazania ziem i sugeruje istnienie już w tym czasie grodu obronnego na szlaku handlowym." },
+        { year: 1346, title: "Prawa Miejskie", event: "Król Kazimierz Wielki nadaje Bydgoszczy prawa miejskie na prawie magdeburskim.", img: "/images/kazimierz.jpg", color: "#FBBF24",
+          detail: "Akt nadania praw miejskich przez Króla Kazimierza Wielkiego był kluczowy dla rozwoju Bydgoszczy. Zapoczątkował on planową rozbudowę miasta, budowę zamku i murów obronnych, a także ustanowił samorząd miejski i przywileje handlowe. Król ten jest uważany za założyciela Bydgoszczy." },
+        { year: 1547, title: "Potęga Handlowa", event: "Rozkwit Bydgoszczy jako centrum handlu zbożem i spławu Wisłą (Spichrze).", img: "/images/spichrze.jpg", color: "#34D399",
+          detail: "W Złotym Wieku Polska stała się największym eksporterem zboża w Europie. Bydgoszcz, dzięki położeniu nad Brdą, stała się kluczowym punktem przeładunkowym. Okres ten charakteryzował się budową słynnych Spichrzy, które do dziś są symbolem prosperity handlowej miasta." },
+        { year: 1772, title: "Okres Pruski", event: "Pierwszy rozbiór Polski. Miasto trafia pod panowanie pruskie.", img: "/images/wieza.jpg", color: "#9CA3AF",
+          detail: "Po włączeniu do Królestwa Prus, Bydgoszcz (jako Bromberg) przeżyła okres intensywnej industrializacji i budowy infrastruktury. Powstał Kanał Bydgoski oraz nowoczesne wodociągi i Wieża Ciśnień, co zmieniło charakter miasta z handlowego na przemysłowy i administracyjny." },
+        { year: 1919, title: "Powrót do Polski", event: "Po 147 latach zaborów Bydgoszcz wraca do wolnej Polski (Łuczniczka).", img: "/images/luczniczka.jpg", color: "#FB7185",
+          detail: "Po odzyskaniu niepodległości przez Polskę, Bydgoszcz stała się ważnym ośrodkiem administracyjnym i kulturalnym. Pomnik Łuczniczki, odsłonięty wcześniej, stał się symbolem polskości i wolności miasta, pomimo wojennej historii." },
+        { year: 1939, title: "Marian Rejewski", event: "Polscy matematycy, w tym rodowity Bydgoszczanin Marian Rejewski, łamią kod Enigmy.", img: "/images/rejewski.jpg", color: "#818CF8",
+          detail: "Choć przełomowe złamanie kodu Enigmy nastąpiło przed wojną, ten fakt jest ściśle związany z bydgoskim geniuszem – Marianem Rejewskim. Jego praca była fundamentem dla Aliantów w czasie II wojny światowej i skróciła konflikt o lata, ratując miliony istnień. Jest to jeden z najistotniejszych wkładów Bydgoszczy w historię świata." },
+        { year: 1945, title: "Odbudowa", event: "Zniszczenia wojenne i heroiczna powojenna odbudowa miasta.", img: "/images/potop.jpg", color: "#A78BFA",
+          detail: "II wojna światowa przyniosła ogromne straty w infrastrukturze Bydgoszczy, w tym zniszczenie historycznych rzeźb i budynków (jak Fontanna Potop). Okres powojenny to czas intensywnej odbudowy i rekonstrukcji, która przywróciła miastu jego historyczny blask." },
+        { year: 2007, title: "Fontanna Potop", event: "Ukończenie odbudowy Fontanny Potop, symbolu odrodzenia miasta.", img: "/images/potop.jpg", color: "#FCD34D",
+          detail: "Odbudowa zniszczonej w czasie wojny Fontanny Potop była inicjatywą społeczną finansowaną ze składek mieszkańców. Jej powrót na plac stanowi symboliczny akt odrodzenia, jedności i triumfu kultury nad zniszczeniem." },
+        { year: 2023, title: "Młyny Rothera", event: "Otwarcie zrewitalizowanych Młynów Rothera jako centrum kultury i nauki.", img: "/images/mlyny.jpg", color: "#60A5FA",
+          detail: "Otwarcie odnowionego kompleksu Młynów Rothera przekształciło postindustrialną Wyspę Młyńską w tętniące życiem centrum kultury, sztuki i edukacji. Jest to symbol nowoczesnej Bydgoszczy, która szanuje swoją przeszłość, ale patrzy w przyszłość." },
+    ];
+
+    const scrollRef = useRef(null);
+    const [scrollProgress, setScrollProgress] = useState(0);
+    const [detailView, setDetailView] = useState(null);
+
+    const handleScroll = () => {
+        if (scrollRef.current) {
+            const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
+            const progress = scrollTop / (scrollHeight - clientHeight);
+            setScrollProgress(progress);
+        }
+    };
+
+    useEffect(() => {
+        const currentRef = scrollRef.current;
+        if (currentRef) {
+            currentRef.addEventListener('scroll', handleScroll);
+            handleScroll(); 
+        }
+        return () => {
+            if (currentRef) {
+                currentRef.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, []);
+
+    return (
+        <div 
+            ref={scrollRef}
+            style={{
+                width: "100%", 
+                height: "100vh", 
+                position: "fixed", 
+                top: 0,
+                left: 0,
+                overflowY: "scroll",
+                zIndex: 900, 
+                background: "#0a0a0a",
+                scrollBehavior: "smooth",
+            }}
+        >
+            {/* GŁÓWNE TŁO - STATIC PARALLAX BASE */}
+            <div style={{
+                position: 'fixed',
+                top: 0, left: 0, width: '100%', height: '100%',
+                backgroundImage: "url('/images/spichrze.jpg')", // Użycie obrazka tła (Spichrze)
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                filter: 'blur(10px) brightness(0.6)',
+                transform: `scale(${1.2 - scrollProgress * 0.2})`, // Zoom Out on scroll
+                transition: 'transform 0.5s',
+                zIndex: 900
+            }}></div>
+
+
+            {/* Przycisk Powrotu */}
+            <button 
+                onClick={onBack} 
+                style={{
+                    position: "fixed", top: "20px", left: "20px", zIndex: 1100, 
+                    background: "rgba(255,255,255,0.8)", border: "none", borderRadius: "50%", 
+                    width: "40px", height: "40px", fontSize: "20px", cursor: "pointer", 
+                    boxShadow: "0 4px 10px rgba(0,0,0,0.3)"
+                }}
+            >
+                🏠
+            </button>
+
+            {/* Stały Tytuł z efektem Parallax (znika) */}
+            <div style={{ 
+                position: "sticky", top: 0, zIndex: 1000, 
+                padding: "20vh 0 10vh",
+                opacity: Math.max(0, 1 - scrollProgress * 2), 
+                transform: `scale(${1 + scrollProgress * 0.5})`, 
+                transition: 'opacity 0.2s, transform 0.2s',
+                textAlign: "center",
+                color: "white",
+                textShadow: "0 0 10px rgba(0,0,0,1)",
+                pointerEvents: 'none'
+            }}>
+                 <h1 style={{fontSize: "6vw", margin: 0, fontWeight: 900}}>Bydgoszcz: Oś Czasu</h1>
+                 <p style={{fontSize: "2vw", fontWeight: 300, opacity: 0.8}}>Od Bytgozcsy do Huba Kultury</p>
+            </div>
+
+            {/* Kontener Kart - Główna Oś Czasu */}
+            <div style={{ 
+                position: "relative",
+                zIndex: 950,
+                padding: "10px",
+                width: "100%",
+                minHeight: '200vh' 
+            }}>
+                {historicalDates.map((item, index) => {
+                    const totalItems = historicalDates.length;
+                    const sectionHeight = 1 / totalItems; 
+                    const startScroll = (index - 0.5) * sectionHeight; 
+                    
+                    const progressInItem = Math.max(0, Math.min(1, (scrollProgress - startScroll) / (sectionHeight * 1.5))); 
+                    
+                    const opacity = 0.5 + progressInItem * 0.5; 
+                    const scale = 0.9 + progressInItem * 0.1; 
+                    const translateY = (1 - progressInItem) * 50; 
+
+                    return (
+                        <div 
+                            key={item.year}
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: index % 2 === 0 ? "flex-end" : "flex-start",
+                                height: "100vh", 
+                                padding: "0 50px",
+                                opacity: opacity,
+                                transform: `scale(${scale}) translateY(${translateY}px)`,
+                                transition: 'transform 0.5s, opacity 0.5s',
+                                perspective: '1000px',
+                            }}
+                        >
+                            <div 
+                                onClick={() => setDetailView(item)} // KLIKALNA KARTA
+                                style={{
+                                    width: "450px",
+                                    height: "500px",
+                                    background: `linear-gradient(135deg, ${item.color}ee, #333ee)`,
+                                    borderRadius: "25px",
+                                    boxShadow: "0 10px 40px rgba(0,0,0,0.8)",
+                                    color: "white",
+                                    padding: "30px",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    position: "relative",
+                                    overflow: "hidden",
+                                    cursor: 'pointer',
+                                    transition: 'background 0.3s, transform 0.3s',
+                                }}
+                                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'}
+                                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}
+                            >
+                                {/* Obrazek na pełną szerokość z efektem Parallax/Zoom */}
+                                <div
+                                    style={{
+                                        backgroundImage: `url(${item.img})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center',
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        width: '100%',
+                                        height: '100%',
+                                        opacity: 0.15, 
+                                        transform: `scale(${1.2 - progressInItem * 0.1})`, 
+                                        transition: 'transform 0.5s',
+                                        zIndex: 1
+                                    }}
+                                />
+
+                                {/* Treść na wierzchu */}
+                                <div style={{ position: 'relative', zIndex: 5 }}>
+                                    <h2 style={{ fontSize: "60px", margin: "0 0 10px 0", color: item.color }}>{item.year}</h2>
+                                    <h3 style={{ fontSize: "28px", margin: "0 0 15px 0" }}>{item.title}</h3>
+                                    <p style={{ fontSize: "18px", lineHeight: 1.6 }}>{item.event}</p>
+                                    <div style={{ marginTop: '20px', padding: '10px 20px', border: '2px solid white', borderRadius: '20px', display: 'inline-block', fontSize: '14px', fontWeight: 'bold' }}>
+                                        Czytaj więcej...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+            {/* Dodatkowy element na dole, aby umożliwić przewinięcie ostatniej karty na środek */}
+            <div style={{ height: "50vh" }}></div>
+
+            {/* Modal Szczegółów */}
+            <DetailModal item={detailView} onClose={() => setDetailView(null)} />
+        </div>
+    );
+}
+
+// =========================================================================
+// WIDOK 6: MENU GŁÓWNE
+// =========================================================================
 function MainMenu({ onStart }) {
   const cards = [
     { id: 'map', title: 'BydgoBOT', icon: '🏛️', desc: 'Rozmawiaj z zabytkami.', color: 'linear-gradient(135deg, #2563EB, #a18cd1)' },
     { id: 'quiz', title: 'Quiz Wiedzy', icon: '❓', desc: 'Co to za miejsce?', color: 'linear-gradient(135deg, #ff9966, #ff5e62)' },
     { id: 'game', title: 'Gra Miejska', icon: '🗺️', desc: 'Zgadnij gdzie jesteś!', color: 'linear-gradient(135deg, #8E2DE2, #4A00E0)' },
     { id: 'food', title: 'Gdzie zjeść?', icon: '🍔', desc: 'Gastronomia w okolicy.', color: 'linear-gradient(135deg, #DA4453, #89216B)' },
+    { id: 'history', title: 'Historia Miasta', icon: '📜', desc: 'Najważniejsze daty i wydarzenia.', color: 'linear-gradient(135deg, #38bdf8, #818cf8)' },
     { id: 'events', title: 'Wydarzenia', icon: '📅', desc: 'Co się dzieje? (wkrótce).', color: 'linear-gradient(135deg, #F2994A, #F2C94C)', disabled: true },
-    { id: 'gallery', title: 'Galeria', icon: '📸', desc: 'Zdjęcia miasta.', color: 'linear-gradient(135deg, #56ab2f, #a8e063)' }, // ODBLOKOWANE!
+    { id: 'gallery', title: 'Galeria', icon: '📸', desc: 'Zdjęcia miasta.', color: 'linear-gradient(135deg, #56ab2f, #a8e063)' }, // Teraz jest aktywne
   ];
-
   return (
-    <div style={{ width: "100%", maxWidth: "850px", padding: "40px", background: "rgba(255,255,255,0.6)", borderRadius: "30px", textAlign: "center" }}>
-      <h1>🌊 Wirtualna Bydgoszcz</h1>
-      <p>Odkryj miasto z AI. Wybierz aktywność:</p>
-      <div style={{ display: "flex", gap: "15px", flexWrap: "wrap", justifyContent: "center" }}>
-        {cards.map(card => (
-          <div key={card.id} onClick={() => !card.disabled && onStart(card.id)}
-            style={{ width: "200px", padding: "20px", borderRadius: "15px", background: "white", cursor: card.disabled ? "not-allowed" : "pointer", opacity: card.disabled ? 0.6 : 1, transition: "transform 0.2s" }}
-            onMouseEnter={(e) => !card.disabled && (e.currentTarget.style.transform = "translateY(-5px)")}
-            onMouseLeave={(e) => !card.disabled && (e.currentTarget.style.transform = "translateY(0)")}
-          >
-            <div style={{ fontSize: "32px" }}>{card.icon}</div>
-            <h3>{card.title}</h3>
-            <p style={{ fontSize: "12px", color: "#666" }}>{card.desc}</p>
-            <button style={{ padding: "5px 15px", borderRadius: "15px", border: "none", color: "white", background: card.disabled ? "#ccc" : card.color }}>{card.disabled ? "Wkrótce" : "Start"}</button>
-          </div>
-        ))}
+    <div 
+        className="menu-container" 
+        style={{ width: "100%", maxWidth: "850px", maxHeight: "90vh", padding: "20px 30px", paddingRight: "15px", background: "rgba(255,255,255,0.6)", borderRadius: "30px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", overflowY: "auto" }}
+    >
+      <div style={{fontSize:"40px",marginBottom:"5px"}}>🌊</div>
+      <h1 style={{fontSize:"32px",margin:"0 0 5px 0",background:"linear-gradient(45deg, #2563EB, #a18cd1)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>Wirtualna Bydgoszcz</h1>
+      <p style={{color:"#555",fontSize:"15px",maxWidth:"600px",marginBottom:"25px"}}>Odkryj miasto z AI. Wybierz aktywność:</p>
+      <div style={{ display: "flex", gap: "15px", flexWrap: "wrap", justifyContent: "center", maxWidth:"700px" }}>
+        {cards.map(c => <div key={c.id} onClick={() => !c.disabled && onStart(c.id)} style={{ width: "200px", padding: "15px", borderRadius: "15px", background: "white", cursor: c.disabled?"not-allowed":"pointer", opacity:c.disabled?0.6:1, transition:"transform 0.2s", display:"flex", flexDirection:"column", alignItems:"center", boxShadow:"0 4px 10px rgba(0,0,0,0.05)" }} onMouseEnter={e=>!c.disabled&&(e.currentTarget.style.transform="translateY(-4px)")} onMouseLeave={e=>!c.disabled&&(e.currentTarget.style.transform="translateY(0)")}><div style={{fontSize:"32px",marginBottom:"8px"}}>{c.icon}</div><h3 style={{margin:"0 0 5px 0",color:"#333",fontSize:"18px"}}>{c.title}</h3><p style={{fontSize:"12px",color:"#666",marginBottom:"12px",minHeight:"30px",lineHeight:"1.2"}}>{c.desc}</p><button style={{padding:"6px 20px",borderRadius:"15px",border:"none",color:"white",fontWeight:"bold",fontSize:"13px",background:c.disabled?"#ccc":c.color,cursor:c.disabled?"not-allowed":"pointer"}}>{c.disabled?"Wkrótce":"Start"}</button></div>)}
       </div>
+      <div style={{marginTop:"20px",fontSize:"11px",color:"#888",opacity:0.8}}>© 2025 BydgoBOT Team</div>
     </div>
   );
 }
 
 // --- GŁÓWNY KOMPONENT APP ---
 function App() {
-  const [currentView, setCurrentView] = useState('menu');
+  const [currentView, setCurrentView] = useState('intro');
 
   return (
     <>
@@ -729,11 +976,13 @@ function App() {
       <div className="background-blob blob-2"></div>
       <div className="background-blob blob-3"></div>
 
+      {currentView === 'intro' && <IntroView onFinish={() => setCurrentView('menu')} />}
       {currentView === 'menu' && <MainMenu onStart={setCurrentView} />}
       {currentView === 'map' && <BydgoMap onBack={() => setCurrentView('menu')} />}
       {currentView === 'quiz' && <QuizView onBack={() => setCurrentView('menu')} />}
       {currentView === 'food' && <FoodView onBack={() => setCurrentView('menu')} />}
       {currentView === 'game' && <CityGame onBack={() => setCurrentView('menu')} />}
+      {currentView === 'history' && <HistoryView onBack={() => setCurrentView('menu')} />}
       {currentView === 'gallery' && <GalleryView onBack={() => setCurrentView('menu')} />}
     </>
   )
