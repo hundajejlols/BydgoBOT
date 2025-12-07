@@ -62,7 +62,7 @@ Wymagane: Node.js zainstalowany na komputerze.
 ### 1. Klonowanie repozytorium
 
 ```bash
-git clone [https://github.com/twoj-repo/bydgoszcz-hackathon.git](https://github.com/twoj-repo/bydgoszcz-hackathon.git)
+git clone (https://github.com/hundajejlols/BydgoBOT.git)
 cd bydgoszcz-hackathon
 ```
 
