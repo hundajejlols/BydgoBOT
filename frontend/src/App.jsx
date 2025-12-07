@@ -16,17 +16,23 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-// Ikony do gry
+// Ikony do gry (SVG - NIEZNISZCZALNE)
 const gameUserIcon = L.icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/markers-default/marker-icon-red.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+    iconUrl: "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='45' viewBox='0 0 30 45'%3E%3Cpath fill='%23EF4444' stroke='%23991B1B' stroke-width='1' d='M15 0C6.7 0 0 6.7 0 15c0 8.3 15 30 15 30s15-21.7 15-30C30 6.7 23.3 0 15 0zm0 22c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7z'/%3E%3C/svg%3E",
+    shadowUrl: iconShadow,
+    iconSize: [30, 45], 
+    iconAnchor: [15, 45], 
+    popupAnchor: [0, -40], 
+    shadowSize: [41, 41]
 });
 
 const gameCorrectIcon = L.icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/markers-default/marker-icon-green.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+    iconUrl: "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='45' viewBox='0 0 30 45'%3E%3Cpath fill='%2310B981' stroke='%23064E3B' stroke-width='1' d='M15 0C6.7 0 0 6.7 0 15c0 8.3 15 30 15 30s15-21.7 15-30C30 6.7 23.3 0 15 0zm0 22c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7z'/%3E%3C/svg%3E",
+    shadowUrl: iconShadow,
+    iconSize: [30, 45], 
+    iconAnchor: [15, 45], 
+    popupAnchor: [0, -40], 
+    shadowSize: [41, 41]
 });
 
 // --- DANE ZABYTKÓW (Czat, Quiz) ---
@@ -103,7 +109,6 @@ const TOURIST_ROUTES = [
             "Wyspa Młyńska (zielona oaza)",
             "Opera Nova"
         ],
-        // Link Mapy (Stary Rynek -> Opera Nova z WP Spichrze/Wyspa Młyńska)
         mapLink: 'https://www.google.com/maps/dir/?api=1&origin=53.12199,18.00021&destination=53.1244,17.9975&waypoints=53.1235,18.0020|53.1222,17.9958&travelmode=walking'
     },
     { 
@@ -116,7 +121,6 @@ const TOURIST_ROUTES = [
             "Exploseum (dawna fabryka prochu DAG)",
             "Kanał Bydgoski i zabytkowe śluzy (Okole/Czyżkówko)"
         ],
-        // Link Mapy (Muzeum Wodociągów -> Exploseum)
         mapLink: 'https://www.google.com/maps/dir/?api=1&origin=53.1194,17.9903&destination=53.0708,18.0739&travelmode=driving'
     },
     { 
@@ -130,7 +134,6 @@ const TOURIST_ROUTES = [
             "Ulice Śródmieścia, w tym Gdańska",
             "Detale architektoniczne i balkony"
         ],
-        // Link Mapy (Plac Wolności -> Aleje Mickiewicza/Gdańska)
         mapLink: 'https://www.google.com/maps/dir/?api=1&origin=53.1265,18.0080&destination=53.1311,18.0083&travelmode=walking'
     },
     { 
@@ -143,7 +146,6 @@ const TOURIST_ROUTES = [
             "Charakterystyka: Płaska, łatwa, idealna na rekreację.",
             "Punkty: Starodrzewy i zabytkowe śluzy."
         ],
-        // Link Mapy (Śluza Okole -> Śluza Czyżkówko)
         mapLink: 'https://www.google.com/maps/dir/?api=1&origin=53.1364,17.9678&destination=53.1333,17.9511&travelmode=walking'
     },
     { 
@@ -155,14 +157,13 @@ const TOURIST_ROUTES = [
             "Atrakcje: Ogród Zoologiczny, Ogród Botaniczny, Park Linowy.",
             "Możliwość zaplanowania wycieczki na cały dzień."
         ],
-        // Link Mapy (Punkt Centralny Myślęcinka)
         mapLink: 'https://www.google.com/maps/search/?api=1&query=Leśny+Park+Kultury+i+Wypoczynku+Myślęcinek+Bydgoszcz'
     },
 ];
 
 
 // =========================================================================
-// WIDOK: INTRO / TRAILER (Refactored for visibility)
+// WIDOK: INTRO / TRAILER
 // =========================================================================
 function IntroView({ onFinish }) {
     return (
@@ -189,7 +190,6 @@ function IntroView({ onFinish }) {
                     boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
                 }}
             >
-                {/* Zmiana: Zwiększona czcionka i dodany biały cień dla lepszej widoczności */}
                 <h1 
                     className="intro-title" 
                     style={{ 
@@ -301,7 +301,6 @@ function HistoryDetailPanel({ item, onClose }) {
 // WIDOK: GALERIA ZDJĘĆ
 // =========================================================================
 function GalleryView({ onBack }) {
-    // Lista obrazów na podstawie GALLERY_IMAGE_NAMES
     const imageKeys = Object.keys(GALLERY_IMAGE_NAMES).map(Number);
     const totalImages = imageKeys.length;
     
@@ -355,14 +354,13 @@ function GalleryView({ onBack }) {
         <div style={{ 
             width: "100%", maxWidth: "1100px", height: "85vh", 
             background: "rgba(255, 255, 255, 0.55)", 
-            backdropFilter: "blur(20px)",            
+            backdropFilter: "blur(20px)", 
             border: "1px solid rgba(255, 255, 255, 0.8)", 
             boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
             borderRadius: "30px", 
             display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
             position: "relative", overflow: "hidden"
         }}>
-            {/* Przycisk powrotu */}
             <button 
                 onClick={onBack} 
                 style={{ 
@@ -375,7 +373,6 @@ function GalleryView({ onBack }) {
                 🏠
             </button>
             
-            {/* Licznik zdjęć */}
             <div style={{ 
                 position: "absolute", top: "20px", right: "20px", zIndex: 20,
                 color: "#333", background: "rgba(255,255,255,0.8)", 
@@ -385,7 +382,6 @@ function GalleryView({ onBack }) {
                 Zdjęcie {currentIndex + 1} / {totalImages}
             </div>
 
-            {/* Przycisk Poprzedni */}
             <button 
                 onClick={prevImage} 
                 style={{ ...navButtonStyle, left: "20px" }}
@@ -395,18 +391,31 @@ function GalleryView({ onBack }) {
                 ❮
             </button>
 
-            {/* Główne zdjęcie i Nazwa */}
-            <div style={{ width: "100%", height: "100%", padding: "60px", boxSizing: "border-box", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                <div style={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+            {/* GŁÓWNA ZMIANA: Sztywny kontener na zdjęcie w galerii, aby każde było równe */}
+            <div style={{ 
+                width: "90%", // Szerokość kontenera
+                height: "65vh", // Stała wysokość (procent ekranu)
+                display: "flex", 
+                flexDirection: "column", 
+                alignItems: "center", 
+                justifyContent: "center",
+                marginTop: "20px"
+            }}>
+                <div style={{ 
+                    width: "100%", 
+                    height: "100%", 
+                    borderRadius: "20px",
+                    overflow: "hidden", // Przycinanie
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+                    background: "rgba(0,0,0,0.05)" // Tło dla ładowania
+                }}>
                     <img 
                         src={imagePath} 
                         alt={imageName} 
                         style={{ 
-                            maxWidth: "100%", 
-                            maxHeight: "100%", 
-                            objectFit: "contain", // Wymusza poprawne skalowanie bez ucinania
-                            borderRadius: "20px",
-                            boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+                            width: "100%", 
+                            height: "100%", 
+                            objectFit: "cover", // TO KLUCZ: Wypełnia cały kontener, przycinając nadmiar
                             transition: 'all 0.3s'
                         }} 
                         onError={(e) => {
@@ -416,20 +425,18 @@ function GalleryView({ onBack }) {
                         }}
                     />
                 </div>
-                {/* Wymagana Nazwa pod zdjęciem */}
                 <p style={{ 
-                    marginTop: '15px', 
-                    marginBottom: 0, 
-                    fontSize: '16px', 
+                    marginTop: '20px', 
+                    fontSize: '18px', 
                     fontWeight: 'bold', 
                     color: '#333', 
-                    textAlign: 'center' 
+                    textAlign: 'center',
+                    textShadow: "0 1px 2px rgba(255,255,255,0.8)"
                 }}>
                     {imageName}
                 </p>
             </div>
 
-            {/* Przycisk Następny */}
             <button 
                 onClick={nextImage} 
                 style={{ ...navButtonStyle, right: "20px" }}
@@ -629,7 +636,12 @@ function CityGame({ onBack }) {
                             <div>Odległość: <b>{Math.round(distance)} m</b></div>
                             <div style={{color: '#fbbf24', fontWeight: "bold"}}>+ {roundScore} pkt</div>
                         </div>
-                        <button className="btn-action btn-next" onClick={nextRound} style={{position:'static', width: '90%'}}>
+                        {/* FIX: Dodano transform: 'none' aby wyłączyć przesunięcie z CSS */}
+                        <button 
+                            className="btn-action btn-next" 
+                            onClick={nextRound} 
+                            style={{ position: 'static', width: '90%', transform: 'none' }}
+                        >
                             Następna Runda
                         </button>
                     </div>
@@ -640,22 +652,34 @@ function CityGame({ onBack }) {
 }
 
 // =========================================================================
-// WIDOK: RESTAURACJE
+// WIDOK: RESTAURACJE (Zmodernizowany Design)
 // =========================================================================
 function FoodView({ onBack }) {
     const [places, setPlaces] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // Funkcja pomocnicza do kolorów i ikon na podstawie typu
+    const getPlaceStyle = (type) => {
+        switch (type) {
+            case "Kawiarnia": return { bg: "#FEF3C7", icon: "☕", color: "#D97706" }; // Żółty/Pomarańczowy
+            case "Fast Food": return { bg: "#FEE2E2", icon: "🍔", color: "#DC2626" }; // Czerwony
+            case "Bar": return { bg: "#DBEAFE", icon: "🍺", color: "#2563EB" };       // Niebieski
+            default: return { bg: "#FFEDD5", icon: "🍽️", color: "#EA580C" };        // Domyślny (Restauracja) - Pomarańczowy
+        }
+    };
+
     useEffect(() => {
         const fetchPlaces = async () => {
             setLoading(true);
             try {
+                // Zapytanie do Overpass API (OpenStreetMap)
                 const query = `
                     [out:json][timeout:25];
                     (
                       node["amenity"="restaurant"](53.115,17.980,53.135,18.020);
                       node["amenity"="cafe"](53.115,17.980,53.135,18.020);
                       node["amenity"="fast_food"](53.115,17.980,53.135,18.020);
+                      node["amenity"="bar"](53.115,17.980,53.135,18.020);
                     );
                     out body;
                 `;
@@ -663,16 +687,36 @@ function FoodView({ onBack }) {
                 const response = await fetch(url);
                 const data = await response.json();
 
-                const mappedPlaces = data.elements.filter(el => el.tags && el.tags.name).map(el => ({
-                    id: el.id,
-                    name: el.tags.name,
-                    type: el.tags.amenity === "cafe" ? "Kawiarnia" : "Restauracja",
-                    lat: el.lat,
-                    lng: el.lon,
-                    address: el.tags["addr:street"] || "Centrum",
-                    icon: el.tags.amenity === "cafe" ? "☕" : "🍽️"
-                }));
-                setPlaces(mappedPlaces.sort(() => 0.5 - Math.random()).slice(0, 30));
+                const mappedPlaces = data.elements
+                    .filter(el => el.tags && el.tags.name)
+                    .map(el => {
+                        // Mapowanie typu
+                        let type = "Restauracja";
+                        if (el.tags.amenity === "cafe") type = "Kawiarnia";
+                        else if (el.tags.amenity === "fast_food") type = "Fast Food";
+                        else if (el.tags.amenity === "bar") type = "Bar";
+
+                        // Symulacja oceny (bo OSM ich nie ma) - dla efektu wizualnego
+                        const rating = (4.0 + Math.random() * 0.9).toFixed(1); // Ocena między 4.0 a 4.9
+                        const reviews = Math.floor(Math.random() * 400) + 50;  // Liczba opinii 50-450
+
+                        return {
+                            id: el.id,
+                            name: el.tags.name,
+                            type: type,
+                            lat: el.lat,
+                            lng: el.lon,
+                            address: el.tags["addr:street"] 
+                                ? `${el.tags["addr:street"]} ${el.tags["addr:housenumber"] || ''}` 
+                                : "Centrum Bydgoszczy",
+                            ...getPlaceStyle(type), // Rozpakowuje bg, icon, color
+                            rating,
+                            reviews
+                        };
+                    });
+
+                // Mieszamy i bierzemy 50 wyników
+                setPlaces(mappedPlaces.sort(() => 0.5 - Math.random()).slice(0, 50));
             } catch (error) { console.error(error); }
             setLoading(false);
         };
@@ -680,22 +724,113 @@ function FoodView({ onBack }) {
     }, []);
 
     const handleNavigate = (lat, lng) => {
-        window.open(`https://www.openstreetmap.org/directions?engine=graphhopper_car&route=%3B${lat}%2C${lng}`, '_blank');
+        window.open(`http://googleusercontent.com/maps.google.com/?q=${lat},${lng}`, '_blank');
     };
 
     return (
-        <div style={{ width: "100%", maxWidth: "900px", height: "85vh", background: "rgba(255,255,255,0.6)", borderRadius: "30px", display: "flex", flexDirection: "column" }}>
-           <div style={{ padding: "15px 25px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.5)" }}>
-              <button onClick={onBack} style={{ border: "none", background: "none", fontSize: "24px", cursor: "pointer" }}>🏠</button>
-              <div style={{ fontWeight: "bold" }}>Gastronomia</div>
+        <div style={{ 
+            width: "100%", maxWidth: "1000px", height: "85vh", 
+            // Tło głównego kontenera - delikatne szkło
+            background: "rgba(255,255,255,0.4)", 
+            backdropFilter: "blur(20px)",
+            borderRadius: "30px", 
+            display: "flex", flexDirection: "column",
+            border: "1px solid rgba(255,255,255,0.6)",
+            boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.1)"
+        }}>
+           {/* Nagłówek */}
+           <div style={{ padding: "20px 30px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <button onClick={onBack} style={{ border: "none", background: "white", width:"45px", height:"45px", borderRadius:"50%", fontSize: "22px", cursor: "pointer", boxShadow: "0 4px 10px rgba(0,0,0,0.1)" }}>🏠</button>
+              <h2 style={{ margin: 0, fontWeight: "800", color: "#333", fontSize: "24px" }}>Gdzie zjeść? 🍔</h2>
+              <div style={{width: "45px"}}></div>
            </div>
-           <div style={{ flex: 1, overflowY: "auto", padding: "20px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "15px" }}>
-                {loading ? <div style={{textAlign: "center", padding: "20px"}}>Ładowanie...</div> : places.map(place => (
-                    <div key={place.id} style={{ background: "white", padding: "15px", borderRadius: "15px", boxShadow: "0 2px 10px rgba(0,0,0,0.05)" }}>
-                        <div style={{ fontSize: "24px", marginBottom: "5px" }}>{place.icon}</div>
-                        <b>{place.name}</b>
-                        <div style={{ fontSize: "12px", color: "#666" }}>{place.type} • {place.address}</div>
-                        <button onClick={() => handleNavigate(place.lat, place.lng)} style={{ marginTop: "10px", padding: "8px", width: "100%", background: "#2563EB", color: "white", border: "none", borderRadius: "8px", cursor: "pointer" }}>Nawiguj</button>
+           
+           {/* Grid z kartami */}
+           <div style={{ 
+               flex: 1, 
+               overflowY: "auto", 
+               padding: "10px 30px 30px 30px", 
+               display: "grid", 
+               gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", // Responsywny grid
+               gap: "20px" 
+           }}>
+                {loading ? (
+                    <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: "40px", color: "#666" }}>
+                        Pobieram najświeższe menu z okolicy... 🍲
+                    </div>
+                ) : places.map(place => (
+                    <div key={place.id} style={{ 
+                        background: "white", 
+                        padding: "20px", 
+                        borderRadius: "25px", 
+                        boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                        transition: "transform 0.2s",
+                        border: "1px solid white"
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"}
+                    onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
+                    >
+                        {/* Góra karty: Ikona + Nazwa */}
+                        <div style={{ display: "flex", gap: "15px", marginBottom: "15px" }}>
+                            <div style={{ 
+                                width: "60px", height: "60px", 
+                                background: place.bg, 
+                                borderRadius: "18px", 
+                                display: "flex", alignItems: "center", justifyContent: "center",
+                                fontSize: "30px",
+                                flexShrink: 0
+                            }}>
+                                {place.icon}
+                            </div>
+                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                                <h3 style={{ margin: "0 0 4px 0", fontSize: "16px", fontWeight: "bold", color: "#1f2937", lineHeight: "1.2" }}>{place.name}</h3>
+                                <span style={{ fontSize: "13px", color: "#9ca3af" }}>{place.type}</span>
+                            </div>
+                        </div>
+
+                        {/* Środek: Ocena i Adres */}
+                        <div style={{ marginBottom: "20px" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "8px" }}>
+                                <span style={{ color: "#FBBF24", fontSize: "16px" }}>⭐</span>
+                                <span style={{ fontWeight: "bold", color: "#1f2937", fontSize: "14px" }}>{place.rating}</span>
+                                <span style={{ color: "#9ca3af", fontSize: "13px" }}>({place.reviews})</span>
+                            </div>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                <span style={{ color: "#EF4444", fontSize: "16px" }}>📍</span>
+                                <span style={{ fontSize: "13px", color: "#4b5563", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "180px" }}>
+                                    {place.address}
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Przycisk na dole */}
+                        <button 
+                            onClick={() => handleNavigate(place.lat, place.lng)} 
+                            style={{ 
+                                width: "100%", 
+                                padding: "12px", 
+                                background: "#58BC42", // Zielony kolor ze zdjęcia
+                                color: "white", 
+                                border: "none", 
+                                borderRadius: "15px", 
+                                cursor: "pointer",
+                                fontWeight: "bold",
+                                fontSize: "14px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                gap: "8px",
+                                boxShadow: "0 4px 12px rgba(88, 188, 66, 0.3)",
+                                transition: "background 0.2s"
+                            }}
+                            onMouseEnter={(e) => e.currentTarget.style.background = "#4cae36"}
+                            onMouseLeave={(e) => e.currentTarget.style.background = "#58BC42"}
+                        >
+                            🗺️ Trasa
+                        </button>
                     </div>
                 ))}
            </div>
@@ -704,7 +839,7 @@ function FoodView({ onBack }) {
 }
 
 // =========================================================================
-// WIDOK: QUIZ
+// WIDOK: QUIZ (Wersja z Przewijaniem - FIX)
 // =========================================================================
 function QuizView({ onBack }) {
   const [questions, setQuestions] = useState([]);
@@ -731,6 +866,7 @@ function QuizView({ onBack }) {
     const correct = option.id === questions[currentQIndex].target.id;
     setIsCorrect(correct);
     if (correct) setScore(score + 1);
+    
     setTimeout(() => {
       if (currentQIndex + 1 < questions.length) {
         setCurrentQIndex(currentQIndex + 1);
@@ -746,10 +882,12 @@ function QuizView({ onBack }) {
 
   if (quizFinished) {
     return (
-      <div style={{ width: "100%", maxWidth: "600px", padding: "40px", background: "rgba(255,255,255,0.7)", borderRadius: "30px", textAlign: "center" }}>
-        <h2>Koniec Quizu!</h2>
-        <div style={{ fontSize: "48px", color: "#2563EB" }}>{score} / {questions.length}</div>
-        <button onClick={onBack} style={{ marginTop: "20px", padding: "10px 20px", background: "#2563EB", color: "white", border: "none", borderRadius: "20px", cursor: "pointer" }}>Menu</button>
+      <div style={{ width: "100%", maxWidth: "500px", padding: "40px", background: "rgba(255,255,255,0.85)", backdropFilter: "blur(10px)", borderRadius: "30px", textAlign: "center", boxShadow: "0 20px 50px rgba(0,0,0,0.1)" }}>
+        <div style={{ fontSize: "60px", marginBottom: "15px" }}>🎉</div>
+        <h2 style={{ fontSize: "28px", margin: "0 0 15px 0", color: "#333" }}>Koniec Quizu!</h2>
+        <div style={{ fontSize: "18px", color: "#555", marginBottom: "5px" }}>Twój wynik:</div>
+        <div style={{ fontSize: "48px", fontWeight: "900", color: "#2563EB", textShadow: "0 5px 15px rgba(37, 99, 235, 0.3)" }}>{score} / {questions.length}</div>
+        <button onClick={onBack} style={{ marginTop: "30px", padding: "12px 30px", fontSize: "16px", fontWeight: "bold", background: "#2563EB", color: "white", border: "none", borderRadius: "50px", cursor: "pointer", boxShadow: "0 10px 20px rgba(37, 99, 235, 0.4)", transition: "transform 0.2s" }} onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"} onMouseLeave={(e) => e.target.style.transform = "scale(1)"}>Wróć do Menu</button>
       </div>
     );
   }
@@ -757,25 +895,107 @@ function QuizView({ onBack }) {
   const currentQ = questions[currentQIndex];
 
   return (
-    <div style={{ width: "100%", maxWidth: "900px", height: "85vh", background: "rgba(255,255,255,0.6)", borderRadius: "30px", display: "flex", flexDirection: "column" }}>
-       <div style={{ padding: "15px", borderBottom: "1px solid rgba(0,0,0,0.1)", display: "flex", justifyContent: "space-between" }}>
-          <button onClick={onBack} style={{ border: "none", background: "none", fontSize: "20px", cursor: "pointer" }}>🏠</button>
-          <b>Pytanie {currentQIndex + 1}/{questions.length}</b>
+    <div style={{ 
+        width: "100%", maxWidth: "650px", height: "85vh", maxHeight: "800px", 
+        background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)",
+        borderRadius: "30px", display: "flex", flexDirection: "column",
+        boxShadow: "0 15px 35px rgba(0,0,0,0.1)", border: "1px solid rgba(255,255,255,0.6)",
+        overflow: "hidden" // Przycinamy zawartość do zaokrąglonych rogów
+    }}>
+       {/* Nagłówek */}
+       <div style={{ padding: "15px 25px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <button onClick={onBack} style={{ border: "none", background: "white", width:"40px", height:"40px", borderRadius:"50%", fontSize: "20px", cursor: "pointer", boxShadow: "0 4px 10px rgba(0,0,0,0.1)" }}>🏠</button>
+          <div style={{ fontSize: "16px", fontWeight: "bold", color: "#444" }}>Pytanie {currentQIndex + 1} z {questions.length}</div>
        </div>
-       <div style={{ padding: "20px", flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <h3>Co to za miejsce?</h3>
-          <img src={currentQ.target.img} style={{ width: "100%", maxHeight: "250px", objectFit: "cover", borderRadius: "15px", marginBottom: "20px" }} />
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", width: "100%" }}>
-              {currentQ.options.map((opt) => (
-                  <button key={opt.id} onClick={() => handleOptionClick(opt)} disabled={selectedOption !== null}
-                    style={{
-                        padding: "15px", borderRadius: "10px", border: "none", cursor: "pointer",
-                        background: selectedOption && opt.id === currentQ.target.id ? "#22c55e" : selectedOption && opt.id === selectedOption.id && !isCorrect ? "#ef4444" : "white",
-                        color: selectedOption && (opt.id === currentQ.target.id || opt.id === selectedOption.id) ? "white" : "black"
-                    }}>
-                      {opt.name}
-                  </button>
-              ))}
+
+       {/* Treść pytania (Przewijalna) */}
+       <div style={{ 
+           flex: 1, 
+           overflow: "hidden", // ZMIANA: Zablokowanie scrollowania wewnątrz
+           padding: "10px 30px 30px 30px", 
+           display: "flex", 
+           flexDirection: "column", 
+           alignItems: "center",
+           justifyContent: "space-between" // Rozłożenie elementów
+        }}>
+          <h2 style={{ fontSize: "24px", marginTop: "10px", marginBottom: "10px", color: "#1f2937", textAlign: "center", fontWeight: "800" }}>Co to za miejsce?</h2>
+          
+          {/* Obrazek - wysokość 280px (kompromis) */}
+          <div style={{
+              width: "100%", 
+              height: "260px", // STAŁA WYSOKOŚĆ, aby Quiz nie skakał
+              marginBottom: "20px",
+              borderRadius: "20px", 
+              overflow: "hidden", 
+              boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
+              border: "3px solid white",
+              flexShrink: 0 // Zapobiega zgniataniu obrazka
+          }}>
+            <img src={currentQ.target.img} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          </div>
+
+          {/* Siatka przycisków */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px", width: "100%", paddingBottom: "10px" }}>
+              {currentQ.options.map((opt) => {
+                  let bgColor = "white";
+                  let textColor = "#333";
+                  let scale = "1";
+                  let shadow = "0 4px 10px rgba(0,0,0,0.05)";
+
+                  if (selectedOption) {
+                      if (opt.id === currentQ.target.id) {
+                          bgColor = "#22c55e"; 
+                          textColor = "white";
+                          shadow = "0 8px 15px rgba(34, 197, 94, 0.4)";
+                          scale = "1.02";
+                      } else if (opt.id === selectedOption.id && !isCorrect) {
+                          bgColor = "#ef4444"; 
+                          textColor = "white";
+                          shadow = "0 8px 15px rgba(239, 68, 68, 0.4)";
+                      } else {
+                          bgColor = "rgba(255,255,255,0.5)"; 
+                          textColor = "#999";
+                      }
+                  }
+
+                  return (
+                    <button 
+                        key={opt.id} 
+                        onClick={() => handleOptionClick(opt)} 
+                        disabled={selectedOption !== null}
+                        style={{
+                            padding: "15px 10px",
+                            minHeight: "60px", 
+                            borderRadius: "15px", 
+                            border: "none", 
+                            cursor: selectedOption ? "default" : "pointer",
+                            background: bgColor,
+                            color: textColor,
+                            fontSize: "15px", 
+                            fontWeight: "600",
+                            boxShadow: shadow,
+                            transform: `scale(${scale})`,
+                            transition: "all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1)",
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            lineHeight: "1.2"
+                        }}
+                        onMouseEnter={(e) => {
+                            if (!selectedOption) {
+                                e.currentTarget.style.transform = "translateY(-3px)";
+                                e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.1)";
+                            }
+                        }}
+                        onMouseLeave={(e) => {
+                            if (!selectedOption) {
+                                e.currentTarget.style.transform = "translateY(0)";
+                                e.currentTarget.style.boxShadow = "0 4px 10px rgba(0,0,0,0.05)";
+                            }
+                        }}
+                    >
+                        {opt.name}
+                    </button>
+                  );
+              })}
           </div>
        </div>
     </div>
@@ -818,13 +1038,30 @@ function BydgoMap({ onBack }) {
     window.speechSynthesis.cancel();
   };
 
-  const speak = (text, gender = 'male') => {
+  // --- ZMODYFIKOWANA FUNKCJA SPEAK (TYLKO KOBIECY GŁOS) ---
+  const speak = (text) => {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'pl-PL';
-    const plVoices = voices.filter(v => v.lang.includes('pl'));
-    let selectedVoice = gender === 'female' ? plVoices.find(v => v.name.includes('Zosia')) : plVoices.find(v => v.name.includes('Jakub'));
+    
+    // Szukamy głosów polskich
+    const plVoices = voices.filter(v => v.lang.includes('pl') || v.lang.includes('PL'));
+    
+    // Wymuszamy głos kobiecy (Zosia, Paulina, Maja lub Google - który też jest kobiecy)
+    let selectedVoice = plVoices.find(v => 
+      v.name.includes('Zosia') || 
+      v.name.includes('Paulina') || 
+      v.name.includes('Maja') || 
+      v.name.includes('Google') 
+    );
+
+    // Fallback: jakikolwiek polski (zazwyczaj pierwszy systemowy to ten sam co "Google" lub domyślny żeński)
+    if (!selectedVoice && plVoices.length > 0) {
+      selectedVoice = plVoices[0];
+    }
+
     if (selectedVoice) utterance.voice = selectedVoice;
+
     window.speechSynthesis.speak(utterance);
   };
 
@@ -847,7 +1084,7 @@ function BydgoMap({ onBack }) {
       const botMsg = { sender: currentMonument.name, text: data.reply };
       setChatHistory((prev) => [...prev, botMsg]);
       
-      if (isAutoRead) speak(data.reply, currentMonument.gender);
+      if (isAutoRead) speak(data.reply); // Usunięto drugi argument (płeć)
 
     } catch (error) { alert("Błąd połączenia z serwerem!"); }
     setLoading(false);
@@ -882,14 +1119,15 @@ function BydgoMap({ onBack }) {
                 <div style={{ height: "35%", width: "100%", backgroundImage: `url(${currentMonument.img})`, backgroundSize: "cover", position: "relative" }}>
                     <button onClick={() => setIsAutoRead(!isAutoRead)} style={{ position: "absolute", top: "10px", right: "10px", background: "rgba(0,0,0,0.5)", color: "white", border: "none", padding: "5px 10px", borderRadius: "20px", cursor: "pointer" }}>{isAutoRead ? "🔊 Lektor WŁ" : "🔇 Lektor WYŁ"}</button>
                     <div style={{ position: "absolute", bottom: "10px", left: "10px", color: "white", textShadow: "0 2px 4px rgba(0,0,0,0.8)" }}>
-                        <h2 style={{ margin: 0 }}>{currentMonument.name}</h2>
+                        <h2 style={{ margin: "0" }}>{currentMonument.name}</h2>
                     </div>
                 </div>
                 <div style={{ flex: 1, overflowY: "auto", padding: "20px", display: "flex", flexDirection: "column", gap: "10px" }}>
                   {chatHistory.map((msg, index) => (
                       <div key={index} style={{ alignSelf: msg.sender === "Ty" ? "flex-end" : "flex-start", background: msg.sender === "Ty" ? "#2563EB" : "white", color: msg.sender === "Ty" ? "white" : "black", padding: "10px", borderRadius: "10px", maxWidth: "80%" }}>
                           {msg.text}
-                          {msg.sender !== "Ty" && !isAutoRead && <button onClick={() => speak(msg.text, currentMonument.gender)} style={{ marginLeft: "10px", background: "none", border: "none", cursor: "pointer" }}>🔊</button>}
+                          {/* Usunięto drugi argument z funkcji speak */}
+                          {msg.sender !== "Ty" && !isAutoRead && <button onClick={() => speak(msg.text)} style={{ marginLeft: "10px", background: "none", border: "none", cursor: "pointer" }}>🔊</button>}
                       </div>
                   ))}
                   {loading && <div style={{ fontSize: "12px", fontStyle: "italic" }}>Pisze...</div>}
@@ -906,7 +1144,7 @@ function BydgoMap({ onBack }) {
 }
 
 // =========================================================================
-// WIDOK: HISTORIA MIASTA (HistoryView) - Z efektem Scroll-Zoom/Parallax
+// WIDOK: HISTORIA MIASTA (HistoryView) - Zmodernizowana Oś Czasu (PIONOWA)
 // =========================================================================
 function HistoryView({ onBack }) {
     const historicalDates = [
@@ -930,190 +1168,136 @@ function HistoryView({ onBack }) {
           detail: "Otwarcie odnowionego kompleksu Młynów Rothera przekształciło postindustrialną Wyspę Młyńską w tętniące życiem centrum kultury, sztuki i edukacji. Jest to symbol nowoczesnej Bydgoszczy, która szanuje swoją przeszłość, ale patrzy w przyszłość." },
     ];
 
-    const scrollRef = useRef(null);
-    const [scrollProgress, setScrollProgress] = useState(0);
     const [detailView, setDetailView] = useState(null);
 
-    const handleScroll = () => {
-        if (scrollRef.current) {
-            const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
-            // Sprawdzamy, czy w ogóle można scrollować, żeby uniknąć dzielenia przez zero, jeśli treść jest mniejsza niż okno
-            const scrollRange = scrollHeight - clientHeight;
-            const progress = scrollRange > 0 ? scrollTop / scrollRange : 0;
-            setScrollProgress(progress);
-        }
-    };
-
-    useEffect(() => {
-        const currentRef = scrollRef.current;
-        if (currentRef) {
-            // Natychmiastowe wymuszenie renderowania, aby scrollHeight było poprawne
-            currentRef.style.display = 'none'; 
-            currentRef.offsetHeight; 
-            currentRef.style.display = 'block'; 
-            
-            currentRef.addEventListener('scroll', handleScroll);
-            handleScroll(); 
-        }
-        return () => {
-            if (currentRef) {
-                currentRef.removeEventListener('scroll', handleScroll);
-            }
-        };
-    }, []);
-
     return (
-        <div 
-            ref={scrollRef}
-            style={{
-                width: "100%", 
-                height: "100vh", 
-                position: "fixed", 
-                top: 0,
-                left: 0,
-                overflowY: "auto", // Umożliwienie scrollowania
-                zIndex: 900, 
-                background: "#0a0a0a",
-                scrollBehavior: "smooth",
-                display: "block", 
-            }}
-        >
-            {/* GŁÓWNE TŁO - STATIC PARALLAX BASE */}
+        <div style={{
+            width: "100%", 
+            height: "100vh", 
+            position: "fixed", 
+            top: 0,
+            left: 0,
+            overflowY: "auto", // Scrollowanie dla całego widoku
+            zIndex: 900, 
+            background: "#f0f2f5", // Jasne tło
+            scrollBehavior: "smooth"
+        }}>
+            {/* Tło statyczne (rozmyte zdjęcie) */}
             <div style={{
                 position: 'fixed',
                 top: 0, left: 0, width: '100%', height: '100%',
-                backgroundImage: "url('/images/spichrze.jpg')", // Użycie obrazka tła (Spichrze)
+                backgroundImage: "url('/images/spichrze.jpg')", 
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                filter: 'blur(10px) brightness(0.6)',
-                transform: `scale(${1.2 - scrollProgress * 0.2})`, // Zoom Out on scroll
-                transition: 'transform 0.5s',
-                zIndex: 900
-            }}></div>
-
+                filter: 'blur(15px) opacity(0.3)', // Bardziej subtelne
+                zIndex: -1
+            }} />
 
             {/* Przycisk Powrotu */}
             <button 
                 onClick={onBack} 
                 style={{
                     position: "fixed", top: "20px", left: "20px", zIndex: 1100, 
-                    background: "rgba(255,255,255,0.8)", border: "none", borderRadius: "50%", 
-                    width: "40px", height: "40px", fontSize: "20px", cursor: "pointer", 
-                    boxShadow: "0 4px 10px rgba(0,0,0,0.3)"
+                    background: "white", border: "none", borderRadius: "50%", 
+                    width: "45px", height: "45px", fontSize: "22px", cursor: "pointer", 
+                    boxShadow: "0 4px 10px rgba(0,0,0,0.15)"
                 }}
             >
                 🏠
             </button>
 
-            {/* Stały Tytuł z efektem Parallax (zniska) - ZMIANA MNOŻNIKA */}
-            <div style={{ 
-                position: "sticky", top: 0, zIndex: 1000, 
-                padding: "20vh 0 10vh",
-                opacity: Math.max(0, 1 - scrollProgress * 4), // Zmiana na * 4 dla szybszego znikania
-                transform: `scale(${1 + scrollProgress * 0.5})`, 
-                transition: 'opacity 0.2s, transform 0.2s',
-                textAlign: "center",
-                color: "white",
-                textShadow: "0 0 10px rgba(0,0,0,1)",
-                pointerEvents: 'none'
-            }}>
-                 <h1 style={{fontSize: "6vw", margin: 0, fontWeight: 900}}>Bydgoszcz: Oś Czasu</h1>
-                 <p style={{fontSize: "2vw", fontWeight: 300, opacity: 0.8}}>Od Bytgozcsy do Huba Kultury</p>
-            </div>
+            {/* Kontener treści */}
+            <div style={{ maxWidth: '900px', margin: '0 auto', padding: '100px 20px', position: 'relative' }}>
+                {/* NOWY WYGLĄD NAGŁÓWKA - CZYTELNY */}
+                <h1 style={{
+                    textAlign: 'center',
+                    fontSize: '54px',
+                    marginBottom: '70px',
+                    fontWeight: '900',
+                    // Zmiana na jednolity, ciemny kolor dla lepszego kontrastu
+                    color: "#1f2937", // Ciemny szary/granat
+                    // Subtelny biały cień pod spodem, żeby "odbić" napis od tła
+                    textShadow: "0 2px 0px rgba(255,255,255,1), 0 4px 15px rgba(0,0,0,0.1)",
+                    letterSpacing: '-1px'
+                }}>
+                    Historia Bydgoszczy
+                </h1>
+                
+                {/* Linia czasu - PRZESUNIĘTA NIŻEJ (top: 240px) */}
+                <div style={{ 
+                    position: 'absolute', 
+                    left: '50%', 
+                    top: '240px', // ZMIANA: Było 180px, teraz 240px - zaczyna się pod napisem
+                    bottom: '50px', 
+                    width: '4px', 
+                    background: '#cbd5e1', 
+                    transform: 'translateX(-50%)',
+                    borderRadius: '2px'
+                }} />
 
-            {/* Kontener Kart - Główna Oś Czasu */}
-            <div style={{ 
-                position: "relative",
-                zIndex: 950,
-                padding: "10px",
-                width: "100%",
-                minHeight: '300vh' // Umożliwienie scrollowania
-            }}>
-                {historicalDates.map((item, index) => {
-                    const totalItems = historicalDates.length;
-                    const sectionHeight = 1 / totalItems; 
-                    const startScroll = (index - 0.5) * sectionHeight; 
-                    
-                    const progressInItem = Math.max(0, Math.min(1, (scrollProgress - startScroll) / (sectionHeight * 1.5))); 
-                    
-                    const opacity = 0.5 + progressInItem * 0.5; 
-                    const scale = 0.9 + progressInItem * 0.1; 
-                    const translateY = (1 - progressInItem) * 50; 
+                {historicalDates.map((item, index) => (
+                    <div key={item.year} style={{ 
+                        display: 'flex', 
+                        justifyContent: index % 2 === 0 ? 'flex-end' : 'flex-start', 
+                        marginBottom: '60px', 
+                        position: 'relative',
+                        width: '100%'
+                    }}>
+                        
+                        {/* Kropka na osi */}
+                        <div style={{ 
+                            position: 'absolute', 
+                            left: '50%', 
+                            width: '20px', 
+                            height: '20px', 
+                            background: item.color, 
+                            borderRadius: '50%', 
+                            transform: 'translate(-50%, 10px)', 
+                            zIndex: 10, 
+                            border: '4px solid white',
+                            boxShadow: '0 0 0 2px #cbd5e1'
+                        }} />
 
-                    return (
+                        {/* Karta */}
                         <div 
-                            key={item.year}
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: index % 2 === 0 ? "flex-end" : "flex-start",
-                                height: "100vh", 
-                                padding: "0 50px",
-                                opacity: opacity,
-                                transform: `scale(${scale}) translateY(${translateY}px)`,
-                                transition: 'transform 0.5s, opacity 0.5s',
-                                perspective: '1000px',
+                            onClick={() => setDetailView(item)} 
+                            style={{ 
+                                width: '42%', // Zostawia miejsce na środek
+                                background: 'rgba(255,255,255,0.95)', 
+                                padding: '25px', 
+                                borderRadius: '20px', 
+                                cursor: 'pointer', 
+                                transition: 'transform 0.2s', 
+                                boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                                border: '1px solid rgba(255,255,255,0.5)',
+                                position: 'relative'
                             }}
+                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+                            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
                         >
-                            <div 
-                                onClick={() => setDetailView(item)} // KLIKALNA KARTA
-                                style={{
-                                    width: "450px",
-                                    height: "500px",
-                                    background: `linear-gradient(135deg, ${item.color}ee, #333ee)`,
-                                    borderRadius: "25px",
-                                    boxShadow: "0 10px 40px rgba(0,0,0,0.8)",
-                                    color: "white",
-                                    padding: "30px",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    position: "relative",
-                                    overflow: "hidden",
-                                    cursor: 'pointer',
-                                    transition: 'background 0.3s, transform 0.3s',
-                                }}
-                                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'}
-                                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}
-                            >
-                                {/* Obrazek na pełną szerokość z efektem Parallax/Zoom */}
-                                <div
-                                    style={{
-                                        backgroundImage: `url(${item.img})`,
-                                        backgroundSize: 'cover',
-                                        backgroundPosition: 'center',
-                                        position: 'absolute',
-                                        top: 0,
-                                        left: 0,
-                                        width: '100%',
-                                        height: '100%',
-                                        opacity: 0.15, 
-                                        transform: `scale(${1.2 - progressInItem * 0.1})`, 
-                                        transition: 'transform 0.5s',
-                                        zIndex: 1
-                                    }}
-                                />
-
-                                {/* Treść na wierzchu */}
-                                <div style={{ position: 'relative', zIndex: 5 }}>
-                                    <h2 style={{ fontSize: "60px", margin: "0 0 10px 0", color: item.color }}>{item.year}</h2>
-                                    <h3 style={{ fontSize: "28px", margin: "0 0 15px 0" }}>{item.title}</h3>
-                                    <p style={{ fontSize: "18px", lineHeight: 1.6 }}>{item.event}</p>
-                                    <div style={{ marginTop: '20px', padding: '10px 20px', border: '2px solid white', borderRadius: '20px', display: 'inline-block', fontSize: '14px', fontWeight: 'bold' }}>
-                                        Czytaj więcej...
-                                    </div>
-                                </div>
+                            <h2 style={{ color: item.color, margin: '0 0 5px 0', fontSize: '36px', fontWeight: '900' }}>{item.year}</h2>
+                            <h3 style={{ margin: '0 0 10px 0', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>{item.title}</h3>
+                            <p style={{ color: '#4b5563', lineHeight: '1.5', fontSize: '15px', margin: 0 }}>{item.event}</p>
+                            <div style={{ 
+                                marginTop: '15px', 
+                                fontSize: '13px', 
+                                color: item.color, 
+                                fontWeight: 'bold', 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                gap: '5px' 
+                            }}>
+                                Czytaj więcej ➜
                             </div>
                         </div>
-                    );
-                })}
+                    </div>
+                ))}
             </div>
-            {/* Dodatkowy element na dole, aby umożliwić przewinięcie ostatniej karty na środek */}
-            <div style={{ height: "50vh" }}></div>
 
-            {/* Zmiana: Zastąpienie Modal na Panel Boczny */}
+            {/* Panel Szczegółów (Modal boczny) */}
             <HistoryDetailPanel item={detailView} onClose={() => setDetailView(null)} />
         </div>
-    );
+    )
 }
 
 // =========================================================================
@@ -1199,37 +1383,46 @@ function MainMenu({ onStart }) {
     { id: 'history', title: 'Historia Miasta', icon: '📜', desc: 'Najważniejsze daty i wydarzenia.', color: 'linear-gradient(135deg, #38bdf8, #818cf8)' },
     { id: 'gallery', title: 'Galeria', icon: '📸', desc: 'Zdjęcia miasta.', color: 'linear-gradient(135deg, #56ab2f, #a8e063)' }, 
   ];
-return (
+
+  return (
     <div 
         className="menu-container" 
         style={{ 
             width: "100%", 
             maxWidth: "850px", 
             maxHeight: "90vh", 
-            padding: "20px 30px", 
-            paddingRight: "15px", 
-            // Czysty styl glassmorphism (przezroczyste tło na kulach)
             background: "rgba(255,255,255,0.7)", 
             borderRadius: "30px", 
             textAlign: "center", 
             display: "flex", 
             flexDirection: "column", 
             alignItems: "center", 
-            overflowY: "auto",
-            
             backdropFilter: "blur(10px)",
             border: "1px solid rgba(255,255,255,0.8)",
             boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
+            position: 'relative', 
+            overflow: 'hidden' 
         }}
     >
-      <div style={{fontSize:"40px",marginBottom:"5px"}}>🌊</div>
-      <h1 style={{fontSize:"32px",margin:"0 0 5px 0",background:"linear-gradient(45deg, #2563EB, #a18cd1)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>Wirtualna Bydgoszcz</h1>
-      <p style={{color:"#555",fontSize:"15px",maxWidth:"600px",marginBottom:"25px"}}>Odkryj miasto z AI. Wybierz aktywność:</p>
-      
-      <div style={{ display: "flex", gap: "15px", flexWrap: "wrap", justifyContent: "center", maxWidth:"800px" }}>
-        {cards.map(c => <div key={c.id} onClick={() => !c.disabled && onStart(c.id)} style={{ width: "200px", padding: "15px", borderRadius: "15px", background: "white", cursor: c.disabled?"not-allowed":"pointer", opacity:c.disabled?0.6:1, transition:"transform 0.2s", display:"flex", flexDirection:"column", alignItems:"center", boxShadow:"0 4px 10px rgba(0,0,0,0.05)" }} onMouseEnter={e=>!c.disabled&&(e.currentTarget.style.transform="translateY(-4px)")} onMouseLeave={e=>!c.disabled&&(e.currentTarget.style.transform="translateY(0)")}><div style={{fontSize:"32px",marginBottom:"8px"}}>{c.icon}</div><h3 style={{margin:"0 0 5px 0",color:"#333",fontSize:"18px"}}>{c.title}</h3><p style={{fontSize:"12px",color:"#666",marginBottom:"12px",minHeight:"30px",lineHeight:"1.2"}}>{c.desc}</p><button style={{padding:"6px 20px",borderRadius:"15px",border:"none",color:"white",fontWeight:"bold",fontSize:"13px",background:c.disabled?"#ccc":c.color,cursor:c.disabled?"not-allowed":"pointer"}}>{c.disabled?"Wkrótce":"Start"}</button></div>)}
+      <div style={{
+          width: '100%',
+          height: '100%',
+          overflowY: 'auto',
+          padding: '20px 30px', 
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+      }}>
+          <div style={{fontSize:"40px",marginBottom:"5px"}}>🌊</div>
+          <h1 style={{fontSize:"32px",margin:"0 0 5px 0",background:"linear-gradient(45deg, #2563EB, #a18cd1)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>Wirtualna Bydgoszcz</h1>
+          <p style={{color:"#555",fontSize:"15px",maxWidth:"600px",marginBottom:"25px"}}>Odkryj miasto z AI. Wybierz aktywność:</p>
+          
+          <div style={{ display: "flex", gap: "15px", flexWrap: "wrap", justifyContent: "center", maxWidth:"800px" }}>
+            {cards.map(c => <div key={c.id} onClick={() => !c.disabled && onStart(c.id)} style={{ width: "200px", padding: "15px", borderRadius: "15px", background: "white", cursor: c.disabled?"not-allowed":"pointer", opacity:c.disabled?0.6:1, transition:"transform 0.2s", display:"flex", flexDirection:"column", alignItems:"center", boxShadow:"0 4px 10px rgba(0,0,0,0.05)" }} onMouseEnter={e=>!c.disabled&&(e.currentTarget.style.transform="translateY(-4px)")} onMouseLeave={e=>!c.disabled&&(e.currentTarget.style.transform="translateY(0)")}><div style={{fontSize:"32px",marginBottom:"8px"}}>{c.icon}</div><h3 style={{margin:"0 0 5px 0",color:"#333",fontSize:"18px"}}>{c.title}</h3><p style={{fontSize:"12px",color:"#666",marginBottom:"12px",minHeight:"30px",lineHeight:"1.2"}}>{c.desc}</p><button style={{padding:"6px 20px",borderRadius:"15px",border:"none",color:"white",fontWeight:"bold",fontSize:"13px",background:c.disabled?"#ccc":c.color,cursor:c.disabled?"not-allowed":"pointer"}}>{c.disabled?"Wkrótce":"Start"}</button></div>)}
+          </div>
+          
+          <div style={{height: "40px", width: "100%", flexShrink: 0}}></div>
       </div>
-      <div style={{marginTop:"20px",fontSize:"11px",color:"#888",opacity:0.8}}>© 2025 BydgoBOT Team</div>
     </div>
   );
 }
@@ -1237,6 +1430,7 @@ return (
 // --- GŁÓWNY KOMPONENT APP ---
 function App() {
   const [currentView, setCurrentView] = useState('intro');
+  const [showCreators, setShowCreators] = useState(false);
 
   return (
     <>
@@ -1253,6 +1447,64 @@ function App() {
       {currentView === 'history' && <HistoryView onBack={() => setCurrentView('menu')} />}
       {currentView === 'gallery' && <GalleryView onBack={() => setCurrentView('menu')} />}
       {currentView === 'tourist' && <TouristRoutesView onBack={() => setCurrentView('menu')} />}
+
+      {/* MODAL Z TWÓRCAMI (Globalny) */}
+      {showCreators && (
+          <div style={{
+              position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
+              background: "rgba(0,0,0,0.4)", backdropFilter: "blur(5px)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              zIndex: 10000, animation: "fadeIn 0.3s"
+          }} onClick={() => setShowCreators(false)}>
+              <div style={{
+                  background: "white", padding: "30px", borderRadius: "25px",
+                  width: "90%", maxWidth: "320px", textAlign: "center",
+                  boxShadow: "0 20px 50px rgba(0,0,0,0.3)",
+                  transform: "scale(1)", animation: "zoomIn 0.3s"
+              }} onClick={(e) => e.stopPropagation()}>
+                  <div style={{fontSize: "40px", marginBottom: "10px"}}>👨‍💻</div>
+                  <h2 style={{margin: "0 0 10px 0", color: "#333"}}>BydgoBOT Team</h2>
+                  <p style={{color: "#666", fontSize: "14px", lineHeight: "1.6"}}>
+                      Projekt stworzony na Hackathonie.<br/>Dziękujemy za korzystanie!
+                  </p>
+                  <div style={{margin: "20px 0", height: "1px", background: "#eee"}}></div>
+                  <ul style={{ listStyle: "none", padding: 0, margin: 0, color: "#444", fontSize: "15px", fontWeight: "500" }}>
+                      <li style={{marginBottom: "5px"}}>🚀 SanokTeam</li>
+                  </ul>
+                  <button onClick={() => setShowCreators(false)} style={{
+                      marginTop: "20px", padding: "10px 30px", background: "#2563EB", color: "white",
+                      border: "none", borderRadius: "20px", cursor: "pointer", fontWeight: "bold",
+                      boxShadow: "0 4px 15px rgba(37, 99, 235, 0.3)"
+                  }}>Zamknij</button>
+              </div>
+          </div>
+      )}
+
+      {/* KLIKALNA PASTYLKA (Globalna, Fixed) */}
+      <button 
+          onClick={() => setShowCreators(true)}
+          style={{
+              position: "fixed",
+              bottom: "20px",
+              right: "20px", 
+              background: "rgba(255, 255, 255, 0.9)",
+              padding: "8px 20px",
+              borderRadius: "50px",
+              fontSize: "12px",
+              color: "#555",
+              fontWeight: "bold",
+              boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+              backdropFilter: "blur(5px)",
+              cursor: "pointer",
+              border: "none",
+              zIndex: 9999,
+              transition: "transform 0.2s"
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+          onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+      >
+          © 2025 BydgoBOT Team
+      </button>
     </>
   )
 }

@@ -79,7 +79,7 @@ app.post('/chat', async (req, res) => {
     // Używamy modelu Gemini 1.5 Flash (szybki i tani/darmowy)
     // Przekazujemy instrukcję systemową (kim jest AI) w konfiguracji modelu
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.5-pro",
+      model: "gemini-2.5-flash",
       systemInstruction: personaInstruction
     });
 
