@@ -203,9 +203,9 @@ function IntroView({ onFinish }) {
                         animation: 'fadeInDown 1.5s ease-out'
                     }}
                 >
-                    BydgoBOT
+                    Bydgoszcz
                 </h1>
-                <p className="intro-subtitle" style={{ fontSize: '24px', textShadow: '0 0 5px rgba(0,0,0,0.5)' }}>Twój AI Przewodnik po Bydgoszczy</p>
+                <p className="intro-subtitle" style={{ fontSize: '24px', textShadow: '0 0 5px rgba(0,0,0,0.5)' }}>Twój Inteligentny Przewodnik po Bydgoszczy</p>
                 <button 
                     onClick={onFinish} 
                     className="btn-start-adventure"
@@ -1495,7 +1495,7 @@ function App() {
               fontWeight: "bold",
               boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
               backdropFilter: "blur(5px)",
-              cursor: "pointer",
+              cursor: "pointer", 
               border: "none",
               zIndex: 9999,
               transition: "transform 0.2s"

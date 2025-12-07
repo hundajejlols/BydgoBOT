@@ -1,51 +1,68 @@
 # 🌊 Wirtualna Bydgoszcz (BydgoBOT)
 
-> **Interaktywny przewodnik po mieście napędzany sztuczną inteligencją.**
+> **Twój osobisty przewodnik po Bydgoszczy napędzany sztuczną inteligencją.**
 
-Projekt stworzony na Hackathon, łączący historię Bydgoszczy z nowoczesną technologią Google Gemini, danymi na żywo z OpenStreetMap oraz grywalizacją.
+🚀 **Projekt stworzony specjalnie na Hackathon Bydgoszcz 2025.**
+
+Aplikacja łączy historię miasta z najnowszą technologią AI (Google Gemini), otwartymi danymi (OpenStreetMap) oraz grywalizacją. To kompletny **Hub Turystyczny**, który pozwala odkrywać miasto na nowo – nowocześnie, interaktywnie i z pasją.
+
+---
 
 ## 💡 O Projekcie
 
-Aplikacja pozwala "ożywić" miasto. Zamiast czytać nudne tablice, użytkownik może **porozmawiać** z Marianem Rejewskim, zapytać Łuczniczkę o pogodę lub dowiedzieć się od Króla Kazimierza Wielkiego, jak zakładał miasto.
+BydgoBOT to nie jest zwykła mapa. To narzędzie, które "ożywia" miasto.
 
-To kompletny **Hub Turystyczny**, który nie tylko uczy, ale też pomaga znaleźć restaurację w pobliżu (bez użycia płatnych API) i informuje o wydarzeniach w mieście.
+* Chcesz porozmawiać z **Marianem Rejewskim** o Enigmie?
+* Szukasz najlepszej **pizzy w okolicy** bez reklam?
+* Chcesz sprawdzić swoją wiedzę w **Grze Miejskiej**?
+
+Wszystko to znajdziesz w jednej, estetycznej aplikacji webowej.
+
+---
 
 ## ✨ Kluczowe Funkcje
 
-* **🤖 Czat AI z Zabytkami:** Integracja z **Google Gemini 1.5 Pro**. Każdy zabytek ma unikalną osobowość (System Prompt) i wiedzę historyczną.
-* **🗣️ Synteza Mowy (TTS):** Aplikacja czyta odpowiedzi na głos, automatycznie dobierając ton męski lub żeński w zależności od postaci.
-* **🗺️ Mapa Interaktywna:** Wykorzystanie **Leaflet** i niestandardowych map kafelkowych.
-* **🍔 Gdzie zjeść? (Live Data):** Pobieranie listy restauracji w czasie rzeczywistym z **OpenStreetMap (Overpass API)**. Dane są zawsze aktualne i darmowe.
-* **🚗 Darmowa Nawigacja:** Integracja linków nawigacyjnych z OpenStreetMap.
-* **❓ Quiz Wiedzy:** Gra edukacyjna z systemem punktacji, testująca wiedzę o zabytkach.
-* **📰 Aktualności:** Pobieranie najnowszych wydarzeń z RSS portalu *Bydgoszcz Informuje*.
-* **🎨 Nowoczesny UI:** Interfejs w stylu "Glassmorphism" (efekt szkła), w pełni responsywny (RWD).
+### 🏛️ 1. Czat AI z Legendami Miasta
+Rozmawiaj z historycznymi postaciami i symbolami Bydgoszczy (m.in. Łuczniczka, Król Kazimierz Wielki, Pan Twardowski). Każda postać ma unikalną osobowość dzięki zaawansowanym promptom systemowym **Google Gemini**.
+
+### 🗺️ 2. Gra Miejska "Zgadnij gdzie jesteś"
+Interaktywna gra w stylu GeoGuessr. Aplikacja pokazuje losowe miejsce w Bydgoszczy (widok Street View), a Twoim zadaniem jest wskazanie go na mapie. Im bliżej, tym więcej punktów!
+
+### 🍔 3. Gdzie zjeść? (Live Data)
+Inteligentna wyszukiwarka gastronomii. Aplikacja pobiera dane **na żywo** z OpenStreetMap (Overpass API). Pokazuje tylko otwarte i istniejące lokale, sortowane według kategorii (Kawiarnie, Fast Food, Restauracje).
+
+### 📜 4. Interaktywna Historia Miasta
+Oś czasu przedstawiona w nowoczesnej formie. Przewijaj historię od założenia grodu aż po współczesność, z pięknymi ilustracjami i ciekawostkami.
+
+### 🧭 5. Trasy Turystyczne
+Gotowe scenariusze zwiedzania (np. Szlak Wody i Przemysłu, Secesja Bydgoska) z bezpośrednimi linkami do nawigacji Google Maps.
+
+### 📸 6. Galeria i Quiz
+Sprawdź swoją wiedzę o zabytkach w Quizie lub zrelaksuj się, przeglądając najpiękniejsze ujęcia miasta w Galerii.
+
+---
 
 ## 🛠️ Technologie
 
-**Frontend:**
-* React 18 + Vite
-* React Leaflet (Mapy)
-* CSS Modules + Flexbox/Grid
+Projekt zbudowany w nowoczesnym stacku technologicznym:
 
-**Backend:**
-* Node.js + Express
-* Google Generative AI SDK (Gemini)
-
-**Dane i API:**
-* Overpass API (OpenStreetMap Data)
-* RSS2JSON (News integration)
+* **Frontend:** React 18 + Vite (Szybkość i responsywność)
+* **Mapy:** React Leaflet + OpenStreetMap
+* **AI:** Google Generative AI SDK (Model Gemini Flash)
+* **Data:** Overpass API (Dynamiczne dane o miejscach)
+* **Backend:** Node.js + Express (Proxy dla zapytań AI)
+* **Styling:** CSS3 (Glassmorphism UI, RWD)
 
 ---
 
 ## 🚀 Jak uruchomić projekt?
 
-Postępuj zgodnie z instrukcją, aby uruchomić aplikację lokalnie.
+Wymagane: Node.js zainstalowany na komputerze.
 
 ### 1. Klonowanie repozytorium
 
-``` bash
-git clone https://github.com/hundajejlols/bydgoszcz-hackathon.git
+```bash
+git clone [https://github.com/twoj-repo/bydgoszcz-hackathon.git](https://github.com/twoj-repo/bydgoszcz-hackathon.git)
 cd bydgoszcz-hackathon
 ```
 
